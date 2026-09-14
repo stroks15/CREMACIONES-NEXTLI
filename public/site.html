@@ -1595,20 +1595,12 @@
   if(!box || !img) return;
 
   const SLIDES = [
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/thumb-plus.jpg', label:'Paquete Plus — Homenaje completo' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/thumb-huella.jpg', label:'Huella con pelo de tu mascota' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/thumb-certificado.jpg', label:'Certificado de cremación' },
     { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-clasica.jpg', label:'Urna Clásica Pewter' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-luna.jpg', label:'Urna Luna Pewter' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-talavera.jpg', label:'Urna de Talavera' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-talavera-pewter.jpg', label:'Talavera y Pewter' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-hueso-huella.jpg', label:'Huesito con Huella' },
     { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-corazon.png', label:'Urna Corazón' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-casita-lisa.jpg', label:'Casita Lisa' },
-    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-casita-teja.jpg', label:'Casita con Teja' },
     { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-hueso-cromado.jpg', label:'Huesito Cromado' },
+    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-talavera-pewter.jpg', label:'Talavera y Pewter' },
+    { src:'https://nextli-stroks15s-projects.vercel.app/images/urna-casita-teja.jpg', label:'Casita con Teja' },
   ];
-
   let idx = 0;
   function setSlide(slide){
     img.classList.remove('loaded');
@@ -2276,20 +2268,36 @@ document.querySelectorAll('.faq-item').forEach(item=>{
  async function loadCMS(){
   try{
    const data=await rpc('nextli_public_content',{});
-   if(data&&data.content) apply(data.content); if(data&&data.urnas&&data.urnas.length){const grid=document.getElementById('urnasGrid'); if(grid){grid.innerHTML=data.urnas.map(u=>'<div class="urna-cat-card" data-reveal><img loading="lazy" decoding="async" src="'+u.image_url+'" alt="'+u.name+'"><div class="body"><h4>'+u.name+'</h4><p>'+u.description+'</p><div class="price-table">'+JSON.stringify(u.prices||{})+'</div></div></div>').join('');}}
-  }catch(e){
-   try{const res=await fetch(SB_URL+'/rest/v1/nextli_content?select=content_key,content_type,value',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(res.ok)apply(await res.json());}catch(_){}
-  }
- }
- function apply(rows){
-  (rows||[]).forEach(c=>{let v=c.value&&c.value.value!==undefined?c.value.value:c.value;if(!c.content_key||!c.content_key.startsWith('selector::'))return;const parts=c.content_key.split('::');const selector=parts[1],kind=parts[2]||'text';document.querySelectorAll(selector).forEach(el=>{if(kind==='text')el.textContent=v;else if(kind==='html')el.innerHTML=v;else if(kind==='href')el.setAttribute('href',v);else if(kind==='src')el.setAttribute('src',v);else if(kind==='style')el.style.cssText=v;});});
- }
- let heart=0,leaf=0,timer;
- function secret(kind){if(timer)clearTimeout(timer);timer=setTimeout(()=>{heart=leaf=0},2500);if(kind==='heart'){heart++;if(heart===2&&leaf===1){location.href='/admin/';heart=leaf=0;}}else{leaf++;if(leaf===1&&heart===2){location.href='/admin/';heart=leaf=0;}}}
- const h=document.getElementById('nextliHeartAccess'),l=document.getElementById('nextliLeafAccess');
- h&&h.querySelector('.mark')?.addEventListener('click',()=>secret('heart'));
- l&&l.querySelector('.mark')?.addEventListener('click',()=>secret('leaf'));
- loadCMS();
+   if(data&&data.content) apply(data.content);
+   if(data&&data.urnas&&data.urnas.length){
+    const grid=document.getElementById('urnasGrid');
+    if(grid) grid.innerHTML=data.urnas.map(u=>'<div class="urna-cat-card" data-reveal><img loading="lazy" decoding="async" src="'+u.image_url+'" alt="'+u.name+'"><div class="body"><h4>'+u.name+'</h4><p>'+u.description+'</p><div class="price-table">'+Object.entries(u.prices||{}).map(([k,v])=>'<div><span>'+k+'</span><b>$'+Number(v).toLocaleString('es-MX')+' MXN</b></div>').join('')+'</div></div></div>').join('');
+   }
+   if(data&&data.services&&data.services.length){
+    const grid=document.querySelector('.svc-grid');
+    if(grid) grid.innerHTML=data.services.map((v,i)=>'<div class="svc-card" data-reveal><span class="tag">'+(i===0?'Individual':i===1?'Comunitaria':'Disponible las 24 horas')+'</span><h3>'+v.name+'</h3><p class="service-admin-description">'+v.description+'</p><div class="price">'+v.price+'</div><a class="go" href="#configurador">Personalizar Despedida</a></div>').join('');
+   }
+  }catch(e){ console.warn('NEXTLI CMS',e); }
+ } function apply(rows){
+  (rows||[]).forEach(c=>{
+   let v=c.value&&c.value.value!==undefined?c.value.value:c.value;
+   if(c.content_key==='whatsapp' && v){
+    document.querySelectorAll('a[href*="wa.me/"]').forEach(a=>{
+      try{const u=new URL(a.href);u.pathname='/'+String(v).replace(/\\D/g,'');a.href=u.toString();}catch(_){}
+    });
+    return;
+   }
+   if(!c.content_key||!c.content_key.startsWith('selector::'))return;
+   const parts=c.content_key.split('::');const selector=parts[1],kind=parts[2]||'text';
+   document.querySelectorAll(selector).forEach(el=>{
+    if(kind==='text')el.textContent=v;
+    else if(kind==='html')el.innerHTML=v;
+    else if(kind==='href')el.setAttribute('href',v);
+    else if(kind==='src')el.setAttribute('src',v);
+    else if(kind==='style')el.style.cssText=v;
+   });
+  });
+ } loadCMS();
 })();
 </script></body>
 </html>
