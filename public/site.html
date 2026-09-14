@@ -2280,25 +2280,21 @@ document.querySelectorAll('.faq-item').forEach(item=>{
    if(data&&data.content) apply(data.content);
   }catch(e){ console.warn('NEXTLI CMS',e); }
  } function apply(rows){
-  (rows||[]).forEach(c=>{
-   let v=c.value&&c.value.value!==undefined?c.value.value:c.value;
-   if(c.content_key==='whatsapp' && v){
-    document.querySelectorAll('a[href*="wa.me/"]').forEach(a=>{
-      try{const u=new URL(a.href);u.pathname='/'+String(v).replace(/\D/g,'');a.href=u.toString();}catch(_){}
-    });
-    return;
-   }
-   if(!c.content_key||!c.content_key.startsWith('selector::'))return;
-   const parts=c.content_key.split('::');const selector=parts[1],kind=parts[2]||'text';
-   document.querySelectorAll(selector).forEach(el=>{
-    if(kind==='text')el.textContent=v;
-    else if(kind==='html')el.innerHTML=v;
-    else if(kind==='href')el.setAttribute('href',v);
-    else if(kind==='src')el.setAttribute('src',v);
-    else if(kind==='style')el.style.cssText=v;
-   });
+ (rows||[]).forEach(c=>{
+  const v=c.value&&c.value.value!==undefined?c.value.value:c.value;
+  if(c.content_key==='whatsapp'&&v){document.querySelectorAll('a[href*="wa.me/"]').forEach(a=>{try{const u=new URL(a.href);u.pathname='/'+String(v).replace(/\\D/g,'');a.href=u.toString()}catch(_){}});return}
+  if(!c.content_key.startsWith('selector::'))return;
+  const parts=c.content_key.split('::'),selector=parts[1],kind=parts[2]||'text';
+  document.querySelectorAll(selector).forEach(el=>{
+   if(kind==='text')el.textContent=v;
+   else if(kind==='src')el.setAttribute('src',v);
+   else if(kind==='style'){const prop=c.value?.property||'cssText';if(prop==='cssText')el.style.cssText=v;else el.style[prop]=v}
   });
- } loadCMS();
+ });
+ (rows||[]).filter(c=>c.content_type==='swap'&&c.content_key.startsWith('swap::')).forEach(c=>{
+  try{const p=c.content_key.split('::');const dec=x=>decodeURIComponent(escape(atob(x)));const a=document.querySelector(dec(p[1])),b=document.querySelector(dec(p[2]));if(a&&b&&a!==b){const pa=a.parentNode,pb=b.parentNode,na=a.nextSibling,nb=b.nextSibling;if(na===b)pb.insertBefore(b,a);else if(nb===a)pa.insertBefore(a,b);else{pa.insertBefore(b,na);pb.insertBefore(a,nb)}}}catch(_){}
+ });
+}loadCMS();
 })();
 </script><div id="cms-panel-herramientas" aria-hidden="true"><div class="cms-box"><div class="cms-head"><div><h2 style="margin:0">NEXTLI · Editor privado</h2><small>CMS seguro · Supabase · OpenAI</small></div><button id="cms-close">Cerrar</button></div>
 <div id="cms-login"><p>Acceso de administrador</p><input id="cms-user" placeholder="Usuario" autocomplete="username"><input id="cms-pass" type="password" placeholder="Contraseña" autocomplete="current-password"><button class="gold" id="cms-login-btn">Entrar</button><p id="cms-login-msg"></p></div>
