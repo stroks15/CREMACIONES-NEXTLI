@@ -812,16 +812,16 @@
         <button type="button" class="btn btn-outline-dark" data-open-guia style="margin-top:6px">Leer nuestra guía de despedida</button>
       </div>
       <div class="pillars">
-        <div class="pillar" data-reveal>
-          <div class="mark">🤍</div>
+        <div class="pillar" data-reveal id="nextliHeartAccess">
+          <button class="mark" type="button" aria-label="Transparencia y respeto">🤍</button>
           <div><h4>Transparencia y respeto</h4><p>Proceso certificado con fotografía testigo en cada cremación individual.</p></div>
         </div>
         <div class="pillar" data-reveal>
           <div class="mark">🕊️</div>
           <div><h4>Paz en casa</h4><p>Recolección y entrega a domicilio con atención personalizada.</p></div>
         </div>
-        <div class="pillar" data-reveal>
-          <div class="mark">🌿</div>
+        <div class="pillar" data-reveal id="nextliLeafAccess">
+          <button class="mark" type="button" aria-label="Sensibilidad tanatológica">🌿</button>
           <div><h4>Sensibilidad tanatológica</h4><p>Asesoría constante y cercana durante tu proceso de duelo.</p></div>
         </div>
       </div>
@@ -2268,5 +2268,28 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 })();
 
 </script>
-</body>
+
+<script>
+(function(){
+ const SB_URL="https://gzdoqxhvwiivwqmkxcem.supabase.co",SB_KEY="sb_publishable_QvTHUHAfwKdQ446LUc97sQ_z2ssLHDQ";
+ async function rpc(fn,args){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args||{})});if(!r.ok)throw new Error('CMS');return r.json();}
+ async function loadCMS(){
+  try{
+   const token='public'; const data=await rpc('nextli_admin_action',{p_token_hash:token,p_action:'public_content',p_payload:{}});
+   if(data&&data.ok&&data.content) apply(data.content);
+  }catch(e){
+   try{const res=await fetch(SB_URL+'/rest/v1/nextli_content?select=content_key,content_type,value',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(res.ok)apply(await res.json());}catch(_){}
+  }
+ }
+ function apply(rows){
+  (rows||[]).forEach(c=>{let v=c.value&&c.value.value!==undefined?c.value.value:c.value;if(!c.content_key||!c.content_key.startsWith('selector::'))return;const parts=c.content_key.split('::');const selector=parts[1],kind=parts[2]||'text';document.querySelectorAll(selector).forEach(el=>{if(kind==='text')el.textContent=v;else if(kind==='html')el.innerHTML=v;else if(kind==='href')el.setAttribute('href',v);else if(kind==='src')el.setAttribute('src',v);else if(kind==='style')el.style.cssText=v;});});
+ }
+ let heart=0,leaf=0,timer;
+ function secret(kind){if(timer)clearTimeout(timer);timer=setTimeout(()=>{heart=leaf=0},2500);if(kind==='heart'){heart++;if(heart===2&&leaf===1){location.href='/admin/';heart=leaf=0;}}else{leaf++;if(leaf===1&&heart===2){location.href='/admin/';heart=leaf=0;}}}
+ const h=document.getElementById('nextliHeartAccess'),l=document.getElementById('nextliLeafAccess');
+ h&&h.querySelector('.mark')?.addEventListener('click',()=>secret('heart'));
+ l&&l.querySelector('.mark')?.addEventListener('click',()=>secret('leaf'));
+ loadCMS();
+})();
+</script></body>
 </html>
