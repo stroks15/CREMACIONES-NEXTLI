@@ -1,0 +1,18 @@
+{
+  "name": "NEXTLI · Cremación de Mascotas",
+  "short_name": "NEXTLI",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B192C",
+  "theme_color": "#0B192C",
+  "description": "Servicios de cremación de mascotas NEXTLI.",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/stroks15/nextli-f3/main/public/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
