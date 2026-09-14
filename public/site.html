@@ -2275,8 +2275,8 @@ document.querySelectorAll('.faq-item').forEach(item=>{
  async function rpc(fn,args){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args||{})});if(!r.ok)throw new Error('CMS');return r.json();}
  async function loadCMS(){
   try{
-   const token='public'; const data=await rpc('nextli_admin_action',{p_token_hash:token,p_action:'public_content',p_payload:{}});
-   if(data&&data.ok&&data.content) apply(data.content);
+   const data=await rpc('nextli_public_content',{});
+   if(data&&data.content) apply(data.content); if(data&&data.urnas&&data.urnas.length){const grid=document.getElementById('urnasGrid'); if(grid){grid.innerHTML=data.urnas.map(u=>'<div class="urna-cat-card" data-reveal><img loading="lazy" decoding="async" src="'+u.image_url+'" alt="'+u.name+'"><div class="body"><h4>'+u.name+'</h4><p>'+u.description+'</p><div class="price-table">'+JSON.stringify(u.prices||{})+'</div></div></div>').join('');}}
   }catch(e){
    try{const res=await fetch(SB_URL+'/rest/v1/nextli_content?select=content_key,content_type,value',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(res.ok)apply(await res.json());}catch(_){}
   }
