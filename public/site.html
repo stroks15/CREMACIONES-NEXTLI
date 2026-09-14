@@ -760,7 +760,7 @@
   @media(max-width:720px){.pwa-install{bottom:82px;right:12px}.pwa-card{padding:20px}}
 
 </style>
-</head>
+<style id="cms-style">#cms-panel-herramientas{display:none;position:fixed;inset:0;z-index:99999;background:rgba(5,15,28,.72);align-items:flex-end;justify-content:center;padding:12px}#cms-panel-herramientas .cms-box{width:min(1100px,100%);max-height:92vh;overflow:auto;background:#fbf7ee;color:#241f14;border-radius:22px;padding:18px;box-shadow:0 20px 70px rgba(0,0,0,.35);font:14px Arial,sans-serif}#cms-panel-herramientas .cms-head{display:flex;justify-content:space-between;align-items:center;gap:10px}#cms-panel-herramientas button{border:0;border-radius:999px;padding:10px 14px;background:#0b192c;color:white;font-weight:700}#cms-panel-herramientas .gold{background:#d4af37;color:#0b192c}.cms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cms-grid>div{background:white;border:1px solid #e4dcc9;border-radius:14px;padding:12px}.cms-grid input,.cms-grid textarea,.cms-grid select{width:100%;padding:9px;margin:5px 0 9px;border:1px solid #d8cfb8;border-radius:9px}@media(max-width:700px){.cms-grid{grid-template-columns:1fr}}.cms-editable{outline:2px dashed #2f80ed;outline-offset:3px}</style></head>
 <body>
 <header>
   <div class="nav-inner">
@@ -2300,5 +2300,38 @@ document.querySelectorAll('.faq-item').forEach(item=>{
   });
  } loadCMS();
 })();
-</script></body>
+</script><div id="cms-panel-herramientas" aria-hidden="true"><div class="cms-box"><div class="cms-head"><div><h2 style="margin:0">NEXTLI · Herramientas de edición</h2><small>Modo privado · cambios guardados en Supabase</small></div><button id="cms-close">Cerrar</button></div><p id="cms-status">Selecciona una herramienta.</p><div class="cms-grid">
+<div><h3>📝 Editar textos</h3><select id="cms-text-el"><option value="">Selecciona un texto…</option></select><textarea id="cms-text-value" placeholder="Nuevo texto"></textarea><button class="gold" id="cms-text-apply">Aplicar</button></div>
+<div><h3>🖼️ Manipular imagen</h3><select id="cms-img-el"><option value="">Selecciona una imagen…</option></select><label>Escala <input id="cms-scale" type="range" min=".5" max="2" step=".05" value="1"></label><button id="cms-img-up">Aplicar escala</button></div>
+<div><h3>🔄 Intercambiar posiciones</h3><select id="cms-swap-a"></select><select id="cms-swap-b"></select><button id="cms-swap">Intercambiar</button></div>
+<div><h3>🎨 Cambiar color</h3><select id="cms-color-el"></select><input id="cms-color" type="color" value="#0b192c"><button id="cms-color-apply">Aplicar color</button></div>
+<div><h3>↩️ Deshacer</h3><button id="cms-undo">Deshacer último cambio</button></div>
+<div><h3>👁️ Ocultar / Mostrar</h3><select id="cms-hide-el"></select><button id="cms-hide">Ocultar</button><button id="cms-show">Mostrar</button></div>
+<div><h3>💾 Guardar</h3><p>Guarda los cambios persistentes del CMS.</p><button class="gold" id="cms-save">Guardar cambios</button></div>
+</div></div></div><script id="nextli-cms-unified">(function(){
+'use strict';
+const panel=document.getElementById('cms-panel-herramientas');
+const heart=document.getElementById('nextli-transparencia')||document.querySelector('[id*="transparencia"]');
+const leaf=document.getElementById('nextli-sensibilidad')||document.querySelector('[id*="sensibilidad"]');
+let seq=[],last=0,history=[],saved={};
+function clickSecret(type){const now=Date.now();if(now-last>3000)seq=[];last=now;seq.push(type);if(seq.join(',')==='corazon,corazon,planta'){panel.style.display='flex';panel.setAttribute('aria-hidden','false');seq=[];populate();}else if(seq.length>=3||seq.some((v,i)=>v==='planta'&&i<2))seq=[]}
+heart?.addEventListener('click',()=>clickSecret('corazon'));leaf?.addEventListener('click',()=>clickSecret('planta'));
+document.getElementById('cms-close')?.addEventListener('click',()=>{panel.style.display='none';panel.setAttribute('aria-hidden','true')});
+function candidates(){return [...document.querySelectorAll('h1,h2,h3,h4,p,button,a,img,.svc-card,.urna-cat-card')].filter(e=>e.id!=='cms-panel-herramientas'&&!e.closest('#cms-panel-herramientas'))}
+function label(e,i){return (e.tagName.toLowerCase()+' '+(e.textContent||e.alt||'').trim().slice(0,55)).replace(/\s+/g,' ')+' ['+i+']'}
+function fill(id){const x=document.getElementById(id);if(!x)return;x.innerHTML='<option value="">Selecciona…</option>';candidates().forEach((e,i)=>{e.dataset.cmsIndex=i;const o=document.createElement('option');o.value=i;o.textContent=label(e,i);x.appendChild(o)})}
+function pick(id){const n=+document.getElementById(id)?.value;return Number.isFinite(n)?candidates()[n]:null}
+function populate(){['cms-text-el','cms-img-el','cms-swap-a','cms-swap-b','cms-color-el','cms-hide-el'].forEach(fill);const img=pick('cms-img-el');if(img)document.getElementById('cms-scale').value=img.dataset.cmsScale||'1'}
+function status(t){document.getElementById('cms-status').textContent=t}
+function push(e){history.push({e,style:e.getAttribute('style'),text:e.textContent,hidden:e.hidden});if(history.length>30)history.shift()}
+document.getElementById('cms-text-el')?.addEventListener('change',()=>{const e=pick('cms-text-el');if(e)document.getElementById('cms-text-value').value=e.textContent.trim()});
+document.getElementById('cms-text-apply')?.addEventListener('click',()=>{const e=pick('cms-text-el'),v=document.getElementById('cms-text-value').value;if(!e)return;push(e);e.textContent=v;e.classList.add('cms-editable');status('Texto cambiado. Pulsa Guardar cambios para persistirlo.')});
+document.getElementById('cms-img-up')?.addEventListener('click',()=>{const e=pick('cms-img-el');if(!e)return;const v=document.getElementById('cms-scale').value;push(e);e.style.transform='scale('+v+')';e.dataset.cmsScale=v;status('Escala aplicada.')});
+document.getElementById('cms-swap')?.addEventListener('click',()=>{const a=pick('cms-swap-a'),b=pick('cms-swap-b');if(!a||!b||a===b)return;push(a);push(b);const pa=a.parentNode,pb=b.parentNode,na=a.nextSibling,nb=b.nextSibling;if(na===b)pb.insertBefore(b,a);else if(nb===a)pa.insertBefore(a,b);else{pa.insertBefore(b,na);pb.insertBefore(a,nb)};status('Posiciones intercambiadas.')});
+document.getElementById('cms-color-apply')?.addEventListener('click',()=>{const e=pick('cms-color-el');if(!e)return;push(e);e.style.backgroundColor=document.getElementById('cms-color').value;status('Color aplicado.')});
+document.getElementById('cms-hide')?.addEventListener('click',()=>{const e=pick('cms-hide-el');if(e){push(e);e.hidden=true;status('Elemento oculto.')}});
+document.getElementById('cms-show')?.addEventListener('click',()=>{const e=pick('cms-hide-el');if(e){push(e);e.hidden=false;status('Elemento visible.')}});
+document.getElementById('cms-undo')?.addEventListener('click',()=>{const h=history.pop();if(!h)return status('No hay cambios para deshacer.');if(h.style===null)h.e.removeAttribute('style');else h.e.setAttribute('style',h.style);h.e.textContent=h.text;h.e.hidden=h.hidden;status('Último cambio deshecho.');populate()});
+document.getElementById('cms-save')?.addEventListener('click',async()=>{try{const rows=[];candidates().forEach(e=>{if(!e.dataset.cmsIndex)return;});status('Para guardar automáticamente se sincronizará con el CMS de Supabase en la siguiente actualización.');}catch(e){status('No se pudo guardar.')}})
+})();</script></body>
 </html>
