@@ -765,7 +765,7 @@
 <header>
   <div class="nav-inner">
     <a class="brand" href="#top">
-      <span class="brand-badge"><img loading="eager" decoding="async" fetchpriority="high" src="https://nextli-stroks15s-projects.vercel.app/images/logo.png" alt="NEXTLI" onerror="this.style.opacity='0'"></span>
+      <span class="brand-badge"><img loading="eager" decoding="async" fetchpriority="high" src="/images/logo.png" alt="NEXTLI" onerror="this.style.opacity='0'"></span>
       <span>NEXTLI</span>
     </a>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
@@ -777,7 +777,7 @@
     <a href="#servicios" data-route="servicios">Servicios</a>
     <a href="#urnas" data-route="urnas">Urnas</a>
     <a href="#marcos-vinilos" data-route="marcos-vinilos">Marcos y Vinilos</a>
-    <a href="#configurador" data-route="configurador">Personalizar Despedida</a>
+    <a href="#guia" data-route="guia" data-open-guia>Guía de despedida</a>
     <a href="#faq" data-route="faq">Preguntas</a>
     <a href="#contacto">Contacto</a>
     <button type="button" id="navAiBtn">🐾 Asistente virtual</button>
@@ -788,15 +788,14 @@
 <section class="hero" id="top">
   <div class="stars" id="stars"></div>
   <div class="container">
-    <span class="hero-logo-badge"><img loading="eager" decoding="async" fetchpriority="high" class="hero-logo" src="https://nextli-stroks15s-projects.vercel.app/images/logo.png" alt="Logo NEXTLI" onerror="this.style.opacity='0'"></span>
+    <div class="hero-showcase" id="heroShowcase" aria-hidden="false">
+      <img id="heroShowcaseImg" alt="" loading="eager" decoding="async">
+      <span class="hero-showcase-caption" id="heroShowcaseCaption"></span>
+    </div>
     <h1>Nuestros mejores amigos siempre <em>vivirán en el corazón</em></h1>
     <p class="sub">Acompañamos con respeto y cariño en el último adiós. En NEXTLI entendemos que tu mascota es parte de tu familia.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#configurador">Personaliza tu despedida</a>
-    </div>
-    <div class="hero-showcase" id="heroShowcase" aria-hidden="true">
-      <img id="heroShowcaseImg" alt="" loading="eager" decoding="async">
-      <span class="hero-showcase-caption" id="heroShowcaseCaption"></span>
+      <button type="button" class="btn btn-primary" data-open-guia>Guía de despedida</button>
     </div>
   </div>
 </section>
@@ -2310,15 +2309,15 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 </div></div></div></div><script id="nextli-cms-unified">(function(){
 'use strict';
 const panel=document.getElementById('cms-panel-herramientas'),loginBox=document.getElementById('cms-login'),work=document.getElementById('cms-work');
-const heart=document.getElementById('nextli-transparencia')||document.querySelector('[id*="transparencia"]');
-const leaf=document.getElementById('nextli-sensibilidad')||document.querySelector('[id*="sensibilidad"]');
+const heart=document.getElementById('nextliHeartAccess');
+const leaf=document.getElementById('nextliLeafAccess');
 const SB_URL="https://gzdoqxhvwiivwqmkxcem.supabase.co",SB_KEY="sb_publishable_QvTHUHAfwKdQ446LUc97sQ_z2ssLHDQ";
 let seq=[],last=0,history=[],pending=new Map(),token=sessionStorage.getItem('nextli_cms_token')||'',aiProposal=null;
 async function rpc(fn,args){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(args||{})});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.message||j.error||'Error de Supabase');return j}
 async function hash(x){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(x));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 async function auth(action,payload={}){return rpc('nextli_admin_action',{p_token_hash:await hash(token),p_action:action,p_payload:payload})}
 function secret(t){const n=Date.now();if(n-last>3000)seq=[];last=n;seq.push(t);if(seq.join(',')==='corazon,corazon,planta'){seq=[];open();}else if(seq.length>=3||seq.includes('planta')&&seq.length<3)seq=[]}
-heart?.addEventListener('click',()=>secret('corazon'));leaf?.addEventListener('click',()=>secret('planta'));
+heart?.addEventListener('click',e=>{e.preventDefault();secret('corazon')});leaf?.addEventListener('click',e=>{e.preventDefault();secret('planta')});
 function open(){panel.style.display='flex';panel.setAttribute('aria-hidden','false');if(token)unlock();else{loginBox.style.display='block';work.style.display='none'}}
 document.getElementById('cms-close')?.addEventListener('click',()=>{panel.style.display='none';panel.setAttribute('aria-hidden','true')});
 document.getElementById('cms-login-btn')?.addEventListener('click',async()=>{try{const u=document.getElementById('cms-user').value,p=document.getElementById('cms-pass').value,t=crypto.randomUUID()+crypto.randomUUID();const j=await rpc('nextli_login',{p_username:u,p_password:p,p_token_hash:await hash(t)});if(!j.ok)throw new Error('Usuario o contraseña incorrectos');token=t;sessionStorage.setItem('nextli_cms_token',token);unlock()}catch(e){document.getElementById('cms-login-msg').textContent=e.message}});
