@@ -2277,13 +2277,14 @@ document.querySelectorAll('.faq-item').forEach(item=>{
     const grid=document.querySelector('.svc-grid');
     if(grid) grid.innerHTML=data.services.map((v,i)=>'<div class="svc-card" data-reveal><span class="tag">'+(i===0?'Individual':i===1?'Comunitaria':'Disponible las 24 horas')+'</span><h3>'+v.name+'</h3><p class="service-admin-description">'+v.description+'</p><div class="price">'+v.price+'</div><a class="go" href="#configurador">Personalizar Despedida</a></div>').join('');
    }
+   if(data&&data.content) apply(data.content);
   }catch(e){ console.warn('NEXTLI CMS',e); }
  } function apply(rows){
   (rows||[]).forEach(c=>{
    let v=c.value&&c.value.value!==undefined?c.value.value:c.value;
    if(c.content_key==='whatsapp' && v){
     document.querySelectorAll('a[href*="wa.me/"]').forEach(a=>{
-      try{const u=new URL(a.href);u.pathname='/'+String(v).replace(/\\D/g,'');a.href=u.toString();}catch(_){}
+      try{const u=new URL(a.href);u.pathname='/'+String(v).replace(/\D/g,'');a.href=u.toString();}catch(_){}
     });
     return;
    }
