@@ -71,11 +71,6 @@
     display:flex;align-items:center;justify-content:space-between;
   }
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
-  .brand-badge{
-    flex:none;width:40px;height:40px;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .brand-badge img{height:100%;width:100%;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.45));}
   .brand span{font-family:'Playfair Display',serif;color:var(--on-navy);font-size:20px;letter-spacing:.04em;}
 
 
@@ -117,20 +112,12 @@
     pointer-events:none;
   }
   .hero-showcase.show{opacity:1;transform:translateY(0) scale(1);}
-  .hero-showcase img{
-    width:200px;height:200px;object-fit:cover;border-radius:18px;
-    border:2px solid rgba(212,175,55,.5);box-shadow:0 24px 50px -18px rgba(0,0,0,.65);
-    background:#fff;opacity:0;transition:opacity .45s ease;
-  }
-  .hero-showcase img.loaded{opacity:1;}
   .hero-showcase-caption{
     display:block;margin-top:10px;font-size:12px;letter-spacing:.06em;
     text-transform:uppercase;color:var(--gold-soft);opacity:.85;
   }
   @media(max-width:480px){
-    .hero-showcase, .hero-showcase img{width:160px;}
-    .hero-showcase img{height:160px;}
-  }
+    }
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     padding:15px 28px;border-radius:999px;font-size:15px;font-weight:600;
@@ -685,21 +672,6 @@
     gap:10px;
   }
 
-  .brand-badge{
-    width:48px;
-    height:48px;
-    overflow:hidden;
-    background:transparent;
-  }
-
-  .brand-badge img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    mix-blend-mode:screen;
-    filter:drop-shadow(0 4px 9px rgba(0,0,0,0.28));
-  }
-
   .brand span{
     color:var(--on-navy);
   }
@@ -734,10 +706,6 @@
     .nav-inner{
       padding:10px 18px;
     }
-    .brand-badge{
-      width:48px;
-      height:48px;
-    }
     .hero-logo-badge{
       width:118px;
       height:118px;
@@ -761,21 +729,30 @@
 
 
 /* NEXTLI mobile hero + navigation refinements */
-.brand{gap:9px}.brand-badge{width:38px;height:38px;color:var(--gold-soft)}.brand-badge svg{width:100%;height:100%;display:block}
+.brand{gap:9px}.brand-badge svg{width:100%;height:100%;display:block}
 .hero-ctas{margin-top:4px}.hero-ctas .btn{min-height:50px}
 .hero-showcase{width:min(92vw,680px);margin:0 auto 30px;opacity:1;transform:none;pointer-events:auto}
-.hero-showcase-stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px;border:1px solid rgba(212,175,55,.48);background:#fff;box-shadow:0 24px 60px -24px rgba(0,0,0,.72)}
-.hero-showcase-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8%;display:block;opacity:0;transition:opacity 1.15s ease-in-out;will-change:opacity}
-.hero-showcase-img.active{opacity:1}.hero-showcase-caption{margin-top:12px;font-size:12px;letter-spacing:.11em}
-@media(max-width:480px){.hero{padding-top:26px}.hero-showcase{width:calc(100vw - 28px);margin-bottom:24px}.hero-showcase-stage{border-radius:20px}.hero-showcase-img{padding:6%}.hero-ctas{gap:10px}.hero-ctas .btn{width:100%;justify-content:center}}
+.hero-showcase-caption{margin-top:12px;font-size:12px;letter-spacing:.11em}
+@media(max-width:480px){.hero{padding-top:26px}.hero-showcase{width:calc(100vw - 28px);margin-bottom:24px}.hero-ctas{gap:10px}.hero-ctas .btn{width:100%;justify-content:center}}
 .app-bottom-nav{grid-template-columns:repeat(3,1fr)}.app-bottom-nav button{min-width:0}.app-bottom-nav button span{line-height:1.15;text-align:center}
 @media(max-width:480px){.app-bottom-nav button{font-size:10px;padding-left:2px;padding-right:2px}.app-bottom-nav button svg{width:21px;height:21px}}
 </style>
-<style id="cms-style">#cms-panel-herramientas{display:none;position:fixed;inset:0;z-index:99999;background:rgba(5,15,28,.72);align-items:flex-end;justify-content:center;padding:12px}#cms-panel-herramientas .cms-box{width:min(1100px,100%);max-height:92vh;overflow:auto;background:#fbf7ee;color:#241f14;border-radius:22px;padding:18px;box-shadow:0 20px 70px rgba(0,0,0,.35);font:14px Arial,sans-serif}#cms-panel-herramientas .cms-head{display:flex;justify-content:space-between;align-items:center;gap:10px}#cms-panel-herramientas button{border:0;border-radius:999px;padding:10px 14px;background:#0b192c;color:white;font-weight:700}#cms-panel-herramientas .gold{background:#d4af37;color:#0b192c}.cms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cms-grid>div{background:white;border:1px solid #e4dcc9;border-radius:14px;padding:12px}.cms-grid input,.cms-grid textarea,.cms-grid select{width:100%;padding:9px;margin:5px 0 9px;border:1px solid #d8cfb8;border-radius:9px}@media(max-width:700px){.cms-grid{grid-template-columns:1fr}}.cms-editable{outline:2px dashed #2f80ed;outline-offset:3px}</style><style id="nextli-zip-fixes">.brand-badge{color:var(--gold-soft);width:34px;height:40px;overflow:visible}.brand-badge svg{width:100%;height:100%;display:block}.hero-ctas{margin-top:4px}.hero-ctas .btn{min-height:50px}.hero-showcase{width:min(92vw,680px);margin:0 auto 30px;opacity:1;transform:none;pointer-events:auto}.hero-showcase-stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px;border:1px solid rgba(212,175,55,.48);background:#fff;box-shadow:0 24px 60px -24px rgba(0,0,0,.72)}.hero-showcase-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8%;opacity:0;transition:opacity 1.15s ease-in-out}.hero-showcase-img.active{opacity:1}.hero-showcase-caption{display:block;margin-top:12px;font-size:12px;letter-spacing:.11em}.app-bottom-nav{grid-template-columns:repeat(3,1fr)}.app-bottom-nav button{min-width:0}.app-bottom-nav button span{line-height:1.15;text-align:center}@media(max-width:480px){.hero{padding-top:26px}.hero-showcase{width:calc(100vw - 28px);margin-bottom:24px}.hero-showcase-img{padding:6%}.hero-ctas{gap:10px}.hero-ctas .btn{width:100%;justify-content:center}.app-bottom-nav button{font-size:10px;padding:4px 2px}.app-bottom-nav button svg{width:21px;height:21px}}</style></head>
+<style id="cms-style">#cms-panel-herramientas{display:none;position:fixed;inset:0;z-index:99999;background:rgba(5,15,28,.72);align-items:flex-end;justify-content:center;padding:12px}#cms-panel-herramientas .cms-box{width:min(1100px,100%);max-height:92vh;overflow:auto;background:#fbf7ee;color:#241f14;border-radius:22px;padding:18px;box-shadow:0 20px 70px rgba(0,0,0,.35);font:14px Arial,sans-serif}#cms-panel-herramientas .cms-head{display:flex;justify-content:space-between;align-items:center;gap:10px}#cms-panel-herramientas button{border:0;border-radius:999px;padding:10px 14px;background:#0b192c;color:white;font-weight:700}#cms-panel-herramientas .gold{background:#d4af37;color:#0b192c}.cms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cms-grid>div{background:white;border:1px solid #e4dcc9;border-radius:14px;padding:12px}.cms-grid input,.cms-grid textarea,.cms-grid select{width:100%;padding:9px;margin:5px 0 9px;border:1px solid #d8cfb8;border-radius:9px}@media(max-width:700px){.cms-grid{grid-template-columns:1fr}}.cms-editable{outline:2px dashed #2f80ed;outline-offset:3px}</style><style id="nextli-consolidated-fixes">
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand-badge{flex:0 0 40px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;overflow:visible;background:transparent}
+.brand-badge img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.brand > span:last-child{white-space:nowrap}
+.hero-showcase{width:min(92vw,680px);margin:38px auto 30px;opacity:1;transform:none;pointer-events:auto}
+.hero-showcase-stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px;border:1px solid rgba(212,175,55,.48);background:#fff;box-shadow:0 24px 60px -24px rgba(0,0,0,.72)}
+.hero-showcase-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center;padding:6%;opacity:0;transition:opacity 1.15s ease-in-out;will-change:opacity}
+.hero-showcase-img.active{opacity:1}
+.hero-showcase-caption{display:block;margin-top:12px;font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-soft);opacity:.9}
+@media(max-width:480px){.hero-showcase{width:calc(100vw - 28px);margin:26px auto 24px}}
+</style></head>
 <body>
 <header>
   <div class="nav-inner">
-    <a class="brand" href="#top" aria-label="NEXTLI inicio"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 41S7 31.2 7 18.5C7 11.8 11.7 7 17.7 7c3.4 0 5.8 1.8 7.3 4.5C26.5 8.8 28.9 7 32.3 7 38.3 7 43 11.8 43 18.5 43 31.2 26 41 24 41Z" stroke="currentColor" stroke-width="2.4"/></svg></span><span>NEXTLI</span></a>
+    <a class="brand" href="#top" aria-label="NEXTLI inicio"><span class="brand-badge"><img src="/images/nextli-logo.png" alt="NEXTLI" width="40" height="40" decoding="async"></span><span>NEXTLI</span></a>
     <button type="button" class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
       <span></span><span></span><span></span>
     </button>
@@ -1276,7 +1253,7 @@
 
 
 <button class="pwa-install" id="pwaInstallBtn" type="button" aria-label="Instalar NEXTLI">
-  <span class="pwa-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 41S7 31.2 7 18.5C7 11.8 11.7 7 17.7 7c3.4 0 5.8 1.8 7.3 4.5C26.5 8.8 28.9 7 32.3 7 38.3 7 43 11.8 43 18.5 43 31.2 26 41 24 41Z" stroke="currentColor" stroke-width="2.4"/></svg></span>
+  <img class="pwa-icon" src="/images/nextli-logo.png" alt="NEXTLI" width="26" height="26" decoding="async">
   <span>Instalar NEXTLI</span>
 </button>
 <div class="pwa-modal" id="pwaModal" role="dialog" aria-modal="true" aria-labelledby="pwaTitle">
