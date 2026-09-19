@@ -1,0 +1,26 @@
+{
+  "name": "Certificado de defunción",
+  "slug": "certificado",
+  "image": "/images/certificado-grande.jpg",
+  "alt": "Certificado de cremación",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Copia extra impresa del certificado de cremación."
+          }
+        ]
+      }
+    ]
+  },
+  "price": 50,
+  "priceLabel": "+ $50 MXN copia extra",
+  "buttonLabel": "Agregar a mi despedida",
+  "buttonAction": "toggle-extra:certificado",
+  "active": true,
+  "order": 3
+}
