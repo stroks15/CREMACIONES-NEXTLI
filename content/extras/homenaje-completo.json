@@ -1,0 +1,26 @@
+{
+  "name": "Homenaje completo",
+  "slug": "homenaje",
+  "image": "/images/homenaje-grande.jpg",
+  "alt": "Homenaje completo personalizado",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Fotografía en acrílico o marco, huella en placa de aluminio y urna personalizada en vinilo."
+          }
+        ]
+      }
+    ]
+  },
+  "price": 500,
+  "priceLabel": "Paquete Plus · + $500 MXN",
+  "buttonLabel": "Agregar a mi despedida",
+  "buttonAction": "toggle-extra:homenaje",
+  "active": true,
+  "order": 1
+}
