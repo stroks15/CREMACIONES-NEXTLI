@@ -1,0 +1,23 @@
+{
+  "title": "NEXTLI",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Acompañamos con respeto y cariño en el último adiós de tu mascota."
+          }
+        ]
+      }
+    ]
+  },
+  "contactTitle": "Contacto",
+  "locationTitle": "Atención presencial",
+  "closingMessage": "Gracias por permitirnos acompañarte.",
+  "legalText": "La información y precios están sujetos a confirmación con NEXTLI.",
+  "privacyLabel": "Privacidad",
+  "termsLabel": "Términos"
+}
