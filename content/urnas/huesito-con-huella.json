@@ -1,0 +1,26 @@
+{
+  "name": "Huesito con Huella",
+  "slug": "huesohuella",
+  "image": "/images/urna-hueso-huella.jpg",
+  "description": "Urna con diseño de huesito y huella.",
+  "note": "",
+  "price": 1950,
+  "priceIndividual": 1950,
+  "priceWithoutRecovery": 0,
+  "prices": [
+    {
+      "label": "Chico",
+      "amount": 1950
+    },
+    {
+      "label": "Mediano",
+      "amount": 2050
+    },
+    {
+      "label": "Grande",
+      "amount": 2150
+    }
+  ],
+  "active": true,
+  "order": 5
+}
