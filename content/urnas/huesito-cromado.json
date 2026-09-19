@@ -1,0 +1,30 @@
+{
+  "name": "Huesito Cromado",
+  "slug": "huesocromado",
+  "image": "/images/urna-hueso-cromado.jpg",
+  "description": "Urna con acabado de cromo brillante.",
+  "note": "",
+  "price": 1950,
+  "priceIndividual": 1950,
+  "priceWithoutRecovery": 0,
+  "prices": [
+    {
+      "label": "Chico",
+      "amount": 1950
+    },
+    {
+      "label": "Mediano",
+      "amount": 2050
+    },
+    {
+      "label": "Grande",
+      "amount": 2150
+    },
+    {
+      "label": "XL",
+      "amount": 2250
+    }
+  ],
+  "active": true,
+  "order": 9
+}
