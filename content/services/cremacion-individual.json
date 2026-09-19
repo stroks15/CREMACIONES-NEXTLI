@@ -1,0 +1,32 @@
+{
+  "name": "Cremación Individual",
+  "slug": "cremacion-individual",
+  "tag": "Individual",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Recuperación del 100% de las cenizas, certificado impreso, fotografía de evidencia del proceso, urna a elegir y placa grabada."
+          }
+        ]
+      }
+    ]
+  },
+  "features": [
+    "Fotografía de evidencia del proceso",
+    "Recuperación del 100% de las cenizas",
+    "Urna a elegir + placa grabada",
+    "Certificado impreso y entrega a domicilio"
+  ],
+  "price": 1750,
+  "priceLabel": "Desde $1,750 MXN según tamaño y urna",
+  "empathyNote": "Te acompañamos con calma y respeto en cada paso.",
+  "buttonLabel": "Personalizar Despedida",
+  "buttonAction": "configurador",
+  "active": true,
+  "order": 1
+}
