@@ -1,0 +1,26 @@
+{
+  "name": "Huella con pelo de tu mascota",
+  "slug": "huella",
+  "image": "/images/huella-grande.jpg",
+  "alt": "Huellita con pelo de tu mascota",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Un recuerdo íntimo: un detalle para llevar siempre contigo."
+          }
+        ]
+      }
+    ]
+  },
+  "price": 200,
+  "priceLabel": "+ $200 MXN",
+  "buttonLabel": "Agregar a mi despedida",
+  "buttonAction": "toggle-extra:huella",
+  "active": true,
+  "order": 2
+}
