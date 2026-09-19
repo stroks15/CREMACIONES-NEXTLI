@@ -1,0 +1,30 @@
+{
+  "name": "Urna Clásica Pewter",
+  "slug": "clasica",
+  "image": "/images/urna-clasica.jpg",
+  "description": "Urna Clásica Pewter.",
+  "note": "",
+  "price": 1750,
+  "priceIndividual": 1750,
+  "priceWithoutRecovery": 0,
+  "prices": [
+    {
+      "label": "Chico",
+      "amount": 1750
+    },
+    {
+      "label": "Mediano",
+      "amount": 1850
+    },
+    {
+      "label": "Grande",
+      "amount": 1950
+    },
+    {
+      "label": "XL",
+      "amount": 2100
+    }
+  ],
+  "active": true,
+  "order": 1
+}
