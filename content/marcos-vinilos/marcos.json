@@ -1,0 +1,10 @@
+{
+  "name": "Marcos",
+  "type": "marco",
+  "image": "/images/marcos.jpg",
+  "description": "Marcos con foto de tu mascota.",
+  "price": 0,
+  "priceLabel": "Consultar",
+  "active": true,
+  "order": 1
+}
