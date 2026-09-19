@@ -1,0 +1,19 @@
+{
+  "question": "¿Cuál es el tiempo de entrega?",
+  "answer": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "El servicio de cremación individual se entrega entre 24 y 36 horas hábiles después de la recolección."
+          }
+        ]
+      }
+    ]
+  },
+  "active": true,
+  "order": 1
+}
