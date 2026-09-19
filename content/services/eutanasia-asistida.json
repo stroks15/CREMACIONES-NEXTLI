@@ -1,0 +1,32 @@
+{
+  "name": "Eutanasia Asistida",
+  "slug": "eutanasia-asistida",
+  "tag": "Disponible las 24 horas",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Procedimiento indoloro y respetuoso, de 15 a 30 minutos, con acompañamiento cercano en cada momento. Requiere confirmación previa con el equipo."
+          }
+        ]
+      }
+    ]
+  },
+  "features": [
+    "Atención las 24 horas",
+    "Procedimiento de 15 a 30 minutos",
+    "Acompañamiento cercano en cada momento",
+    "Confirmación previa con el equipo"
+  ],
+  "price": 600,
+  "priceLabel": "De $600 a $2,500 MXN según peso",
+  "empathyNote": "Sabemos que es una de las decisiones más difíciles como tutor. Estamos aquí para acompañarte con calma, sin prisas, en cada paso.",
+  "buttonLabel": "Solicitar por WhatsApp",
+  "buttonAction": "whatsapp",
+  "active": true,
+  "order": 3
+}
