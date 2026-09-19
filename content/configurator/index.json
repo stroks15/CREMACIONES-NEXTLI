@@ -1,0 +1,74 @@
+{
+  "eyebrow": "Personaliza tu despedida",
+  "title": "Acompañándote en todo momento en tu selección",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Elige el servicio, los datos de tu compañero, la urna y los detalles de personalización. Al final podrás revisar un resumen y enviarlo por WhatsApp."
+          }
+        ]
+      }
+    ]
+  },
+  "step1Title": "Tipo de servicio",
+  "step2Title": "Datos de tu compañero",
+  "step3Title": "Urna",
+  "step4Title": "Personalización",
+  "step5Title": "Resumen",
+  "animalOptions": [
+    {
+      "value": "perro",
+      "label": "Perro",
+      "icon": "🐶"
+    },
+    {
+      "value": "gato",
+      "label": "Gato",
+      "icon": "🐱"
+    },
+    {
+      "value": "ave",
+      "label": "Ave",
+      "icon": "🐦"
+    },
+    {
+      "value": "conejo",
+      "label": "Conejo",
+      "icon": "🐰"
+    }
+  ],
+  "colorOptions": [
+    {
+      "value": "negro",
+      "label": "Negro",
+      "hex": "#111111"
+    },
+    {
+      "value": "blanco",
+      "label": "Blanco",
+      "hex": "#FFFFFF"
+    },
+    {
+      "value": "dorado",
+      "label": "Dorado",
+      "hex": "#D4AF37"
+    },
+    {
+      "value": "plata",
+      "label": "Plata",
+      "hex": "#C0C0C0"
+    }
+  ],
+  "evidencePhotoLabel": "Foto de evidencia del proceso",
+  "farewellMessageLabel": "Mensaje de despedida",
+  "summaryTitle": "Resumen de tu despedida",
+  "totalLabel": "Total",
+  "whatsappButtonLabel": "Enviar resumen por WhatsApp",
+  "backButtonLabel": "Atrás",
+  "continueButtonLabel": "Continuar"
+}
