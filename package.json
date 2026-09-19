@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "tinacms dev -c \"next dev\"",
+    "build": "tinacms build --local && next build",
     "start": "next start"
   },
   "dependencies": {
     "next": "16.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tinacms": "^3.14.0"
   },
   "devDependencies": {
+    "@tinacms/cli": "^3.0.0",
     "typescript": "5.7.3",
     "@types/node": "^24",
     "@types/react": "^19",
