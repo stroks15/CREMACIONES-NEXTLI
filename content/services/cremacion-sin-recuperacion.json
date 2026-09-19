@@ -1,0 +1,31 @@
+{
+  "name": "Cremación sin Recuperación",
+  "slug": "cremacion-sin-recuperacion",
+  "tag": "Comunitaria",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Una alternativa de integración ecológica, con certificado digital enviado por correo."
+          }
+        ]
+      }
+    ]
+  },
+  "features": [
+    "Integración ecológica (abono / composta)",
+    "Certificado digital enviado por correo",
+    "Opción consciente y económica"
+  ],
+  "price": 800,
+  "priceLabel": "Chico $800 · Mediano $850 · Grande $1,100 MXN",
+  "empathyNote": "Una opción sencilla y consciente cuando no se requiere recuperación de cenizas.",
+  "buttonLabel": "Personalizar Despedida",
+  "buttonAction": "configurador",
+  "active": true,
+  "order": 2
+}
