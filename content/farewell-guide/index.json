@@ -1,0 +1,85 @@
+{
+  "eyebrow": "Guía de despedida",
+  "title": "Un momento para despedir y recordar",
+  "intro": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Siento con todo el corazón la pérdida de tu mejor amigo. Tómate tu tiempo; no estás solo. Te acompañamos con ternura y respeto."
+          }
+        ]
+      }
+    ]
+  },
+  "steps": [
+    {
+      "title": "Tómate tu tiempo",
+      "description": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Permítete sentir y despedirte a tu manera."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "Elige cómo despedirlo",
+      "description": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Podemos acompañarte para elegir el servicio y la urna que mejor se adapten a tus necesidades."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "Conserva sus recuerdos",
+      "description": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Una fotografía, una huellita o un detalle personalizado puede ayudarte a mantener viva su memoria."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "closing": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Estamos aquí para acompañarte con calma, sensibilidad y respeto."
+          }
+        ]
+      }
+    ]
+  }
+}
