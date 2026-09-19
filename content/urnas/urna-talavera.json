@@ -1,0 +1,30 @@
+{
+  "name": "Urna de Talavera",
+  "slug": "talavera",
+  "image": "/images/urna-talavera.jpg",
+  "description": "Diseño de Talavera en tonos azul y crema con detalles decorativos.",
+  "note": "No es un acabado cromado.",
+  "price": 1750,
+  "priceIndividual": 1750,
+  "priceWithoutRecovery": 0,
+  "prices": [
+    {
+      "label": "Chico",
+      "amount": 1750
+    },
+    {
+      "label": "Mediano",
+      "amount": 1950
+    },
+    {
+      "label": "Grande",
+      "amount": 2050
+    },
+    {
+      "label": "XL",
+      "amount": 2150
+    }
+  ],
+  "active": true,
+  "order": 3
+}
