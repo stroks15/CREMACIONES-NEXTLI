@@ -34,7 +34,7 @@ const money = (name: string, label: string) => ({
   description: "Precio en MXN.",
   ui: {
     validate: (value: number | undefined) =>
-      value != null && value < 0 ? "El precio no puede ser negativo." : null,
+      value != null && value < 0 ? "El precio no puede ser negativo." : undefined,
   },
 });
 
