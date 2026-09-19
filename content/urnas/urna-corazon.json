@@ -1,0 +1,26 @@
+{
+  "name": "Urna Corazón",
+  "slug": "corazon",
+  "image": "/images/urna-corazon.png",
+  "description": "Urna en forma de corazón para conservar las cenizas.",
+  "note": "",
+  "price": 1950,
+  "priceIndividual": 1950,
+  "priceWithoutRecovery": 0,
+  "prices": [
+    {
+      "label": "Chico",
+      "amount": 1950
+    },
+    {
+      "label": "Mediano",
+      "amount": 2050
+    },
+    {
+      "label": "Grande",
+      "amount": 2150
+    }
+  ],
+  "active": true,
+  "order": 6
+}
