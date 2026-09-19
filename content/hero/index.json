@@ -1,0 +1,26 @@
+{
+  "eyebrow": "Cremación de mascotas",
+  "title": "Nuestros mejores amigos siempre",
+  "highlight": "vivirán en el corazón",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Acompañamos con respeto y cariño en el último adiós. En NEXTLI entendemos que tu mascota es parte de tu familia."
+          }
+        ]
+      }
+    ]
+  },
+  "logo": "/images/nextli-logo.png",
+  "showcaseImage": "/images/urna-clasica.jpg",
+  "showcaseCaption": "Urna Clásica Pewter",
+  "primaryButtonLabel": "🐾 Personaliza tu despedida",
+  "primaryButtonAction": "configurador",
+  "secondaryButtonLabel": "📖 Lee nuestra guía de despedida",
+  "secondaryButtonAction": "guia"
+}
