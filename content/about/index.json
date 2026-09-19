@@ -1,0 +1,35 @@
+{
+  "eyebrow": "Sobre NEXTLI",
+  "title": "Honramos la memoria de quien te dio su amor incondicional",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "En NEXTLI nacemos con la misión de ofrecer un proceso de despedida digno, transparente y lleno de paz. Nos dedicamos al cuidado de cada detalle para que puedas recordar a tu compañero con serenidad."
+          }
+        ]
+      }
+    ]
+  },
+  "pillars": [
+    {
+      "icon": "🤍",
+      "title": "Transparencia y respeto",
+      "description": "Proceso certificado con fotografía testigo en cada cremación individual."
+    },
+    {
+      "icon": "🌿",
+      "title": "Sensibilidad tanatológica",
+      "description": "Asesoría constante y cercana durante tu proceso de duelo."
+    },
+    {
+      "icon": "🏠",
+      "title": "Paz en casa",
+      "description": "Recolección y entrega a domicilio con atención personalizada."
+    }
+  ]
+}
