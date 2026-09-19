@@ -1,0 +1,26 @@
+{
+  "name": "Certificado físico adicional",
+  "slug": "copia-certificado",
+  "image": "/images/certificado-grande.jpg",
+  "alt": "Certificado físico adicional",
+  "description": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Una copia extra impresa del certificado de cremación."
+          }
+        ]
+      }
+    ]
+  },
+  "price": 50,
+  "priceLabel": "+ $50 MXN",
+  "buttonLabel": "Agregar a mi despedida",
+  "buttonAction": "toggle-extra:copia-certificado",
+  "active": true,
+  "order": 4
+}
