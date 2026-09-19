@@ -1,0 +1,22 @@
+{
+  "name": "Talavera y Pewter",
+  "slug": "talpewter",
+  "image": "/images/urna-talavera-pewter.jpg",
+  "description": "Urna con acabado Pewter brillante y detalles decorativos negros.",
+  "note": "",
+  "price": 1950,
+  "priceIndividual": 1950,
+  "priceWithoutRecovery": 0,
+  "prices": [
+    {
+      "label": "Chico",
+      "amount": 1950
+    },
+    {
+      "label": "Mediano",
+      "amount": 2050
+    }
+  ],
+  "active": true,
+  "order": 4
+}
