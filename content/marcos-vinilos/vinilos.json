@@ -1,0 +1,10 @@
+{
+  "name": "Vinilos",
+  "type": "vinilo",
+  "image": "/images/vinilos.jpg",
+  "description": "Letras y logo NEXTLI en vinilo para personalizar la urna, en cuatro acabados de color a elegir.",
+  "price": 0,
+  "priceLabel": "Consultar",
+  "active": true,
+  "order": 2
+}
