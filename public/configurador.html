@@ -736,6 +736,30 @@
 @media(max-width:480px){.hero{padding-top:26px}.hero-showcase{width:calc(100vw - 28px);margin-bottom:24px}.hero-ctas{gap:10px}.hero-ctas .btn{width:100%;justify-content:center}}
 .app-bottom-nav{grid-template-columns:repeat(3,1fr)}.app-bottom-nav button{min-width:0}.app-bottom-nav button span{line-height:1.15;text-align:center}
 @media(max-width:480px){.app-bottom-nav button{font-size:10px;padding-left:2px;padding-right:2px}.app-bottom-nav button svg{width:21px;height:21px}}
+</style></style>
+<style id="standalone-topbar-style">
+#standaloneTopBar{
+  position:sticky;top:0;z-index:5000;height:64px;padding:8px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:#0B192C;border-bottom:1px solid rgba(212,175,55,.22);
+}
+#standaloneNextli{
+  appearance:none;border:0;background:transparent;color:#F3EFE1;
+  font-family:'Playfair Display',serif;font-size:22px;font-weight:600;
+  letter-spacing:.08em;padding:10px 8px;cursor:pointer;
+}
+#standaloneNextli[data-menu-armed="true"]{color:#E7CE83;}
+#standalonePersonaliza{
+  appearance:none;border:1px solid #D4AF37;background:#D4AF37;color:#0B192C;
+  border-radius:999px;padding:10px 16px;font:600 13px Poppins,sans-serif;
+  cursor:pointer;white-space:nowrap;
+}
+#standalonePersonaliza:active{transform:translateY(1px);}
+@media(max-width:480px){
+  #standaloneTopBar{height:58px;padding:7px 10px}
+  #standaloneNextli{font-size:19px}
+  #standalonePersonaliza{font-size:12px;padding:9px 13px}
+}
 </style>
 <style id="cms-style">#cms-panel-herramientas{display:none;position:fixed;inset:0;z-index:99999;background:rgba(5,15,28,.72);align-items:flex-end;justify-content:center;padding:12px}#cms-panel-herramientas .cms-box{width:min(1100px,100%);max-height:92vh;overflow:auto;background:#fbf7ee;color:#241f14;border-radius:22px;padding:18px;box-shadow:0 20px 70px rgba(0,0,0,.35);font:14px Arial,sans-serif}#cms-panel-herramientas .cms-head{display:flex;justify-content:space-between;align-items:center;gap:10px}#cms-panel-herramientas button{border:0;border-radius:999px;padding:10px 14px;background:#0b192c;color:white;font-weight:700}#cms-panel-herramientas .gold{background:#d4af37;color:#0b192c}.cms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.cms-grid>div{background:white;border:1px solid #e4dcc9;border-radius:14px;padding:12px}.cms-grid input,.cms-grid textarea,.cms-grid select{width:100%;padding:9px;margin:5px 0 9px;border:1px solid #d8cfb8;border-radius:9px}@media(max-width:700px){.cms-grid{grid-template-columns:1fr}}.cms-editable{outline:2px dashed #2f80ed;outline-offset:3px}</style><style id="nextli-consolidated-fixes">
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
@@ -865,7 +889,7 @@
 <style id="nextli-configurador-standalone">
 /* NEXTLI — Configurador independiente */
 html,body{min-height:100%;margin:0}
-body.nextli-configurador-standalone > *:not(#configOverlay){display:none!important}
+body.nextli-configurador-standalone > *:not(#configOverlay):not(#standaloneTopBar){display:none!important}
 body.nextli-configurador-standalone #configOverlay{
   display:block!important;
   position:relative!important;
@@ -882,6 +906,37 @@ body.nextli-configurador-standalone #configOverlay .config-close{display:none!im
 </style>
 </head>
 <body class="nextli-configurador-standalone">
+<div id="standaloneTopBar" aria-label="Barra de navegación NEXTLI">
+  <button type="button" id="standaloneNextli" aria-label="NEXTLI inicio">NEXTLI</button>
+  <button type="button" id="standalonePersonaliza" class="standalone-personaliza">🐾 Personaliza tu despedida</button>
+</div>
+<script id="standalone-menu-trigger">
+(function(){
+  const brand=document.getElementById('standaloneNextli');
+  const action=document.getElementById('standalonePersonaliza');
+  const panel=document.getElementById('cms-panel-herramientas');
+  if(!brand||!action||!panel)return;
+  let taps=0,last=0,armed=false;
+  function arm(){
+    const now=Date.now();
+    if(now-last>1200)taps=0;
+    last=now;taps++;
+    if(taps===2){armed=true;taps=0;brand.setAttribute('data-menu-armed','true');setTimeout(()=>{armed=false;brand.removeAttribute('data-menu-armed')},4000);}
+  }
+  brand.addEventListener('click',arm);
+  action.addEventListener('click',function(e){
+    if(armed){
+      e.preventDefault(); e.stopPropagation();
+      armed=false; brand.removeAttribute('data-menu-armed');
+      panel.style.display='flex';panel.setAttribute('aria-hidden','false');
+      const token=sessionStorage.getItem('nextli_cms_token');
+      const login=document.getElementById('cms-login'),work=document.getElementById('cms-work');
+      if(token){login.style.display='none';work.style.display='block';}
+      else{login.style.display='block';work.style.display='none';}
+    }
+  });
+})();
+</script>
 <header id="siteHeader" class="nextli-header">
   <div class="nextli-header-inner">
     <a class="nextli-header-brand" href="#top" aria-label="NEXTLI inicio">
