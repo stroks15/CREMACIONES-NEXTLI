@@ -861,7 +861,7 @@
 @media(min-width:861px){
   .nextli-header-inner{padding-left:28px;padding-right:28px}
 }
-</style></head>
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script></head>
 <body>
 <header id="siteHeader" class="nextli-header">
   <div class="nextli-header-inner">
@@ -1657,6 +1657,7 @@
   }
 
   window.nextliOpenConfigurador = openConfigurador;
+  if(location.pathname === '/configurador.html') setTimeout(()=>openConfigurador('#nosotros'),80);
 
   if(closeBtn) closeBtn.addEventListener('click', closeConfigurador);
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closeConfigurador(); });
@@ -1948,13 +1949,13 @@ function renderSummary(){
   let lines = '';
   lines += line('Servicio', isCom ? 'Cremación sin recuperación / comunitaria' : 'Cremación individual');
   lines += line('Mascota', (document.getElementById('petName').value || '—'));
-  lines += line('Especie / Raza', `${state.species||'—'}${state.breed? ' / '+state.breed:''}`);
+  lines += line('Especie / Raza', `${effectiveSpecies()||'—'}${state.breed? ' / '+state.breed:''}`);
   lines += line('Tamaño', isCom ? COM_LABEL[state.weightCom] : SIZE_LABEL[state.weight]);
   if(!isCom) lines += line('Urna', urn ? urn.name : '—');
   if(state.plus) lines += line('Adicional', 'Paquete Plus — Homenaje completo (+$500)');
   if(state.huella) lines += line('Adicional', 'Huella con pelo de mascota (+$200)');
   if(state.cert) lines += line('Adicional', 'Certificado físico adicional (+$50)');
-  if(state.color) lines += line('Color de vinilo/letras', state.color);
+  if(state.plus){ lines += line('Marco', state.frame); if(state.color) lines += line('Color de vinilo/letras', state.color); }
   const farewell = (document.getElementById('farewellPhrase').value || '').trim();
   if(farewell) lines += line('Frase de despedida', farewell);
 
@@ -1988,7 +1989,7 @@ function buildWaLink(){
 
 *DATOS PARA CERTIFICADO DE CREMACIÓN:*
 - *Nombre Mascota:* ${val('petName')}
-- *Especie / Raza:* ${state.species||'—'} / ${state.breed||'—'}
+- *Especie / Raza:* ${effectiveSpecies()||'—'} / ${state.breed||'—'}
 - *Edad:* ${val('petAge')}
 - *Fecha Defunción:* ${val('petDate')}
 - *Propietario:* ${val('ownerName')}
