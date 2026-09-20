@@ -2556,7 +2556,122 @@ document.getElementById('cms-save')?.addEventListener('click',async()=>{try{
  const j=await r.json();if(!r.ok)throw new Error(j.error||'No se pudo guardar');
  pending.clear();status('✓ Guardado en GitHub. Vercel desplegará automáticamente el commit.');alert('Cambios guardados correctamente. GitHub recibió el nuevo site.html.');setTimeout(()=>location.reload(),1200);
 }catch(e){status('Error al guardar: '+e.message);alert('No se pudo guardar: '+e.message)}});if(!r.ok)throw new Error(r.error||'No se pudo guardar')}const swaps=[...pending.values()].filter(x=>x.type==='swap');for(const x of swaps){await auth('save_content',{content_key:x.selector,content_type:'swap',value:{value:true}})}pending.clear();status('✓ Cambios guardados. Ya son persistentes en Supabase.');await new Promise(r=>setTimeout(r,700));location.reload()}catch(e){status('Error al guardar: '+e.message)}});
-})();</script><script id="nextli-advanced-logic">
+})();</script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+<script id="nextli-advanced-logic">
+(function(){
+'use strict';
+const GROUP_URL='https://whatsapp.com';
+let workerMode=false;
+const dogBreeds={Chihuahua:'chico',Pug:'chico',Poodle:'mediano','Pastor Alemán':'grande',Mestizo:'mediano'};
+const catBreeds={Siamés:'chico',Persa:'chico',Esfinge:'chico'};
+function enableWorker(){
+  workerMode=true;document.body.classList.add('nextli-worker-mode');
+  const ps=document.getElementById('paymentStatus'); if(ps) ps.dispatchEvent(new Event('change'));
+}
+function paymentText(){
+  const s=document.getElementById('paymentStatus')?.value||'No configurado';
+  if(s==='Otro'){const a=document.getElementById('paymentAmount')?.value||'0';return 'Otro — 
+</html>+a+' MXN';}
+  return s;
+}
+const species=document.getElementById('species'),breed=document.getElementById('breed'),other=document.getElementById('speciesOther'),weight=document.getElementById('weightRange'),note=document.getElementById('suggestNote');
+if(species){
+  species.innerHTML='<option value="">Selecciona…</option><option value="perro">Perro</option><option value="gato">Gato</option><option value="otro">Otro</option>';
+  species.addEventListener('change',function(){
+    const isKnown=this.value==='perro'||this.value==='gato';
+    document.getElementById('breedField').style.display=isKnown?'block':'none';
+    other.style.display=this.value==='otro'?'block':'none';
+    breed.innerHTML='<option value="">Selecciona…</option>';
+    const list=this.value==='perro'?Object.keys(dogBreeds):this.value==='gato'?Object.keys(catBreeds):[];
+    list.forEach(r=>{const o=document.createElement('option');o.textContent=r;breed.appendChild(o);});
+    state.species=this.value;
+    state.breed='';
+    if(this.value==='otro'){weight.value='';state.weight='';note.style.display='none';}
+  });
+}
+if(breed) breed.addEventListener('change',function(){
+  state.breed=this.value;
+  const map=state.species==='perro'?dogBreeds:catBreeds, suggested=map[this.value];
+  if(suggested){weight.value=suggested;state.weight=suggested;note.style.display='block';note.innerHTML='El peso promedio de esta raza ha sido sugerido automáticamente. <button type="button" id="manualWeightBtn" class="geo-btn" style="margin:0 0 0 8px;padding:5px 9px">Cambiar peso manualmente</button>';renderUrns(suggested);document.getElementById('next2').disabled=false;
+    document.getElementById('manualWeightBtn').onclick=function(){weight.disabled=false;weight.focus();note.innerHTML='Peso sugerido: '+SIZE_LABEL[suggested]+' · puedes cambiarlo manualmente.';};
+    weight.disabled=true;
+  }
+});
+if(weight) weight.addEventListener('change',function(){weight.disabled=false;});
+const plus=document.getElementById('addPlus'), colorWrap=document.getElementById('colorWrap');
+function syncPlus(){const on=!!plus?.checked;if(colorWrap)colorWrap.style.display=on?'block':'none';document.querySelectorAll('.marcos-vinilos').forEach(x=>x.style.display=on?'block':'none');}
+plus?.addEventListener('change',syncPlus);syncPlus();
+
+let frameBlock=document.getElementById('conditionalFrames');
+if(!frameBlock){
+  frameBlock=document.createElement('div');frameBlock.id='conditionalFrames';frameBlock.className='promo-card';frameBlock.style.display='none';frameBlock.style.marginTop='16px';
+  frameBlock.innerHTML='<div class="promo-body"><p class="promo-eyebrow">Paquete Plus</p><h4>Marcos y Vinilos</h4><p class="promo-desc">Elige el acabado incluido con tu Homenaje completo.</p><div class="field"><label>Tipo de marco</label><select id="frameType"><option>Sin marco</option><option>Marco sencillo</option><option>Marco doble</option></select></div><div class="color-row"><div class="color-swatch" data-frame-color="Plateado">Plateado</div><div class="color-swatch" data-frame-color="Blanco">Blanco</div><div class="color-swatch" data-frame-color="Negro">Negro</div><div class="color-swatch" data-frame-color="Dorado">Dorado</div></div></div>';
+  document.getElementById('colorWrap').parentNode.insertBefore(frameBlock,document.getElementById('colorWrap').nextSibling);
+}
+plus?.addEventListener('change',()=>frameBlock.style.display=plus.checked?'block':'none');
+frameBlock.querySelectorAll('[data-frame-color]').forEach(x=>x.addEventListener('click',()=>{frameBlock.querySelectorAll('[data-frame-color]').forEach(y=>y.classList.remove('selected'));x.classList.add('selected');state.frameColor=x.dataset.frameColor;}));
+
+document.getElementById('paymentStatus')?.addEventListener('change',function(){document.getElementById('paymentAmount').style.display=this.value==='Otro'?'block':'none';});
+
+function normalizePhone(v){let d=(v||'').replace(/\D/g,'');if(d.length===10)d='52'+d;return d;}
+function workerMessage(){
+ const isCom=state.service==='comunitaria',urn=URNS.find(u=>u.id===state.urnId),extras=[];
+ if(state.plus)extras.push('Homenaje completo - Paquete Plus (+$500 MXN)');
+ if(state.huella)extras.push('Huella con pelo de mascota (+$200 MXN)');
+ if(state.cert)extras.push('Certificado físico adicional (+$50 MXN)');
+ return '*SOLICITUD NEXTLI - MODO TRABAJADOR*\n------------------------------\nServicio: '+(isCom?'Cremación Comunitaria':'Cremación Individual')+'\nUrna: '+(urn?.name||'No aplica')+'\nExtras: '+(extras.join(', ')||'Ninguno')+'\n\nDATOS DEL CLIENTE\nMascota: '+val('petName')+'\nEspecie: '+(state.species==='otro'?(other?.value||'Otro'):state.species)+'\nRaza: '+(state.breed||'—')+'\nEdad: '+val('petAge')+'\nFecha de defunción: '+val('petDate')+'\nPropietario: '+val('ownerName')+'\nTeléfono: '+val('ownerPhone')+'\nDirección: '+val('ownerAddress')+'\n\nESTATUS DE PAGO\n'+paymentText()+'\nTotal: 
+</html>+calcTotal().toLocaleString('es-MX')+' MXN';
+}
+function openWa(url){window.open(url,'_blank','noopener');}
+async function generateCertificate(){
+ if(typeof window.html2canvas!=='function'||typeof window.jspdf==='undefined'){alert('No se cargó el generador PDF.');return;}
+ const tpl=document.getElementById('certificateTemplate'); if(!tpl)return;
+ const urn=URNS.find(u=>u.id===state.urnId),pet=val('petName'),owner=val('ownerName');
+ document.getElementById('certPet').textContent=pet==='—'?'Mascota':pet;
+ document.getElementById('certSpecies').textContent=state.species==='otro'?(other?.value||'Otro'):(state.species||'—');
+ document.getElementById('certBreed').textContent=state.breed||'—';
+ document.getElementById('certAge').textContent=val('petAge');
+ document.getElementById('certService').textContent=state.service==='comunitaria'?'Cremación comunitaria':'Cremación individual';
+ document.getElementById('certOwner').textContent=owner;
+ document.getElementById('certDate').textContent=val('petDate');
+ tpl.style.left='0';await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+ const canvas=await html2canvas(tpl,{scale:2,backgroundColor:'#FBF7EE',useCORS:true});
+ const {jsPDF}=window.jspdf;const pdf=new jsPDF({orientation:'landscape',unit:'px',format:[1100,780]});
+ pdf.addImage(canvas.toDataURL('image/jpeg',0.98),'JPEG',0,0,1100,780);
+ const clean=x=>(x||'').replace(/[^\p{L}\p{N}_-]+/gu,'').slice(0,80);
+ const filename=(pet!=='—'&&owner!=='—')?'Certificado-'+clean(pet)+'-'+clean(owner)+'.pdf':'Certificado-Cremacion-Nextli.pdf';
+ pdf.save(filename);tpl.style.left='-100000px';
+}
+document.getElementById('sendGroupWa')?.addEventListener('click',async()=>{openWa(GROUP_URL+'?text='+encodeURIComponent(workerMessage()));await generateCertificate();});
+document.getElementById('sendClientWa')?.addEventListener('click',async()=>{const p=normalizePhone(val('ownerPhone'));if(!p||p.length<12){alert('Escribe un teléfono válido del cliente.');return;}openWa('https://wa.me/'+p+'?text='+encodeURIComponent(workerMessage()));await generateCertificate();});
+document.getElementById('downloadCertificate')?.addEventListener('click',generateCertificate);
+
+const topBrand=document.getElementById('standaloneNextli'),topAction=document.getElementById('standalonePersonaliza');
+if(topBrand&&topAction){
+ let taps=0,last=0;
+ topBrand.addEventListener('click',()=>{const n=Date.now();if(n-last>1200)taps=0;last=n;taps++;if(taps===2){taps=2;topBrand.setAttribute('data-menu-armed','true');}});
+ topAction.addEventListener('click',e=>{if(taps===2){e.preventDefault();taps=0;topBrand.removeAttribute('data-menu-armed');enableWorker();}});
+}
+})();
+</script>
+<div id="certificateTemplate">
+  <div class="cert-frame">
+    <span class="cert-corner tl">❧</span><span class="cert-corner tr">❧</span><span class="cert-corner bl">❧</span><span class="cert-corner br">❧</span>
+    <div class="cert-marks">🐾　🐾　🐾　🐾　🐾　🐾</div>
+    <div class="cert-title">Certificado de cremación</div>
+    <div class="cert-sub">EN HANOR A TI V A TODO ESTE TIEMO<br>COMPARTIDA MUCHAS GRACIAS</div>
+    <div class="cert-pet" id="certPet">Mascota</div>
+    <div class="cert-grid">
+      <div class="cert-row"><b>Especie:</b><span id="certSpecies">—</span></div>
+      <div class="cert-row"><b>Raza:</b><span id="certBreed">—</span></div>
+      <div class="cert-row"><b>Edad:</b><span id="certAge">—</span></div>
+      <div class="cert-row"><b>Tipo de cremación:</b><span id="certService">—</span></div>
+      <div class="cert-row" style="grid-column:1/-1"><b>Propietario:</b><span id="certOwner">—</span></div>
+    </div>
+    <div class="cert-footer"><div><b>FECHA DE DEFUNCIÓN</b><br><span id="certDate">—</span></div><div class="cert-logo">NEXTLI</div><div style="text-align:right">Cadies &amp; Bainer<br>MVZ</div></div>
+  </div>
+</div><script id="nextli-advanced-logic">
 (function(){
 'use strict';
 const GROUP_URL='https://whatsapp.com';
