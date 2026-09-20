@@ -1,0 +1,1 @@
+export const IMAGE_BASE="https://nextli-stroks15s-projects.vercel.app/images/";export const URNS=[];
