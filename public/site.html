@@ -861,7 +861,8 @@
 @media(min-width:861px){
   .nextli-header-inner{padding-left:28px;padding-right:28px}
 }
-</style><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script></head>
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
 <body>
 <header id="siteHeader" class="nextli-header">
   <div class="nextli-header-inner">
@@ -1142,25 +1143,20 @@
               <option value="">Selecciona…</option>
               <option value="perro">Perro</option>
               <option value="gato">Gato</option>
-              <option value="ave">Ave (pollo, pato, loro, agapornis…)</option>
-              <option value="exotico">Pequeño mamífero / exótico (hámster, hurón, conejo, cuy…)</option>
               <option value="otro">Otro</option>
             </select>
           </div>
-          <div class="field" id="breedField" style="display:none">
-            <label>Raza (opcional)</label>
+          <div class="field" id="otherSpeciesField" style="display:none">
+            <label>Especie (escribe manualmente)</label><input type="text" id="otherSpecies" placeholder="Ej. Conejo, ave, hurón…">
+          </div><div class="field" id="breedField" style="display:none"><label>Raza</label>
             <select id="breed">
               <option value="">Selecciona…</option>
-              <option>Chihuahueño</option><option>Poodle</option><option>Pug</option>
-              <option>Schnauzer</option><option>Yorkshire</option><option>Beagle</option>
-              <option>Bulldog</option><option>Cocker</option><option>Golden Retriever</option>
-              <option>Labrador</option><option>Pastor Alemán</option><option>Gran Danés</option>
-              <option>Husky</option><option>Mestizo / otra raza</option>
+              <option>Chihuahua</option><option>Pug</option><option>Poodle</option><option>Pastor Alemán</option><option>Labrador Retriever</option><option>Golden Retriever</option><option>Schnauzer</option><option>Bulldog Francés</option><option>Beagle</option><option>Rottweiler</option><option>Mestizo</option>
             </select>
           </div>
         </div>
 
-        <div class="field" id="weightFieldIndividual">
+        <div id="catBreedField" class="field" style="display:none"><label>Raza</label><select id="catBreed"><option value="">Selecciona…</option><option>Siamés</option><option>Persa</option><option>Esfinge</option><option>Maine Coon</option><option>Británico de pelo corto</option><option>Bengalí</option><option>Ragdoll</option><option>Angora</option><option>Mestizo</option></select></div><div class="field" id="weightFieldIndividual">
           <label>Peso aproximado</label>
           <select id="weightRange">
             <option value="">Selecciona…</option>
@@ -1181,7 +1177,7 @@
           </select>
         </div>
 
-        <p class="step-note" id="suggestNote" style="display:none"></p>
+        <p class="step-note" id="suggestNote" style="display:none"></p><div id="manualWeightAction" style="display:none;margin:-6px 0 12px"><small style="color:var(--ink-soft)">El peso promedio de esta raza ha sido sugerido automáticamente.</small> <button type="button" id="manualWeightBtn" class="btn btn-outline-dark" style="padding:7px 13px;font-size:11px">Cambiar peso manualmente</button></div>
 
         <div id="urnPickerWrap">
           <h4 class="step-title" style="font-size:18px;margin-top:26px">Elige la urna</h4>
@@ -1252,7 +1248,7 @@
           <small>La incluiremos con cariño junto a tu solicitud.</small>
         </div>
 
-        <div id="colorWrap" style="display:none;margin-top:6px">
+        <div id="frameWrap" style="display:none;margin-top:18px"><label style="font-size:13px;font-weight:600;color:var(--navy)">Marcos y Vinilos</label><div class="color-row" id="frameRow"><div class="color-swatch" data-frame="Sin marco">Sin marco</div><div class="color-swatch" data-frame="Marco sencillo">Marco sencillo</div><div class="color-swatch" data-frame="Marco doble">Marco doble</div></div></div><div id="colorWrap" style="display:none;margin-top:6px">
           <label style="font-size:13px;font-weight:600;color:var(--navy)">Color de letras / vinilo</label>
           <div class="color-row" id="colorRow">
             <div class="color-swatch" data-color="Plateado"><span class="color-dot" style="background:#c7c7c7"></span>Plateado</div>
@@ -1287,7 +1283,7 @@
           </div>
         </div>
 
-        <div class="wizard-nav">
+        <div id="workerPaymentWrap" style="display:none;margin-top:16px"><div class="field"><label>Estado del Pago</label><select id="paymentStatus"><option>No pagado</option><option>Pago liquidado</option><option>Pago del 50%</option><option>Otro</option></select><input type="number" id="paymentOther" placeholder="Monto abonado (MXN)" style="display:none;margin-top:8px"></div></div><div class="wizard-nav">
           <button type="button" class="btn btn-outline" onclick="goTo(3)">Atrás</button>
           <button type="button" class="btn btn-dark" onclick="renderSummary(); goTo(5)">Ver resumen</button>
         </div>
@@ -1297,10 +1293,7 @@
         <h3 class="step-title">Paso 5 · Revisa y envía tu solicitud</h3>
         <p class="step-note">Este es el resumen de tu solicitud. Al enviarla, se abrirá WhatsApp con todo ya redactado para que solo confirmes con nosotros.</p>
         <div id="summaryBox"></div>
-        <div class="wizard-nav">
-          <button type="button" class="btn btn-outline" onclick="goTo(4)">Atrás</button>
-          <a class="btn btn-primary" id="sendWa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
-        </div>
+        <div class="wizard-nav"><button type="button" class="btn btn-outline" onclick="goTo(4)">Atrás</button><a class="btn btn-primary" id="sendWa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a><div id="workerFinalActions" style="display:none;gap:10px;flex-wrap:wrap"><button type="button" class="btn btn-dark" id="sendGroupWa">Mandar WhatsApp a Grupo Nextli</button><button type="button" class="btn btn-primary" id="sendClientWa">Enviar WhatsApp al Cliente</button><button type="button" class="btn btn-outline-dark" id="downloadCertificate">Descargar Certificado PDF</button></div></div>
       </div>
 
     </div>
@@ -1308,7 +1301,7 @@
   </div>
 </div>
 
-<main class="view" id="view-faq" data-view="faq">
+<style>.cert-row{display:grid;grid-template-columns:42% 58%;padding:13px 8px;border-bottom:1px solid #dfd4b6;font-size:15px}.cert-row:last-child{border-bottom:0}</style><div id="certificatePrint" style="position:fixed;left:-10000px;top:0;width:794px;height:1123px;background:#FBF7EE;color:#241F14;font-family:Poppins,sans-serif;padding:70px;box-sizing:border-box"><div style="position:absolute;inset:22px;border:4px solid #D4AF37;border-radius:8px"></div><div style="position:absolute;inset:34px;border:1.5px solid #B99A46;border-radius:5px"></div><div style="position:relative;height:100%;display:flex;flex-direction:column;align-items:center"><div style="text-align:center;color:#8d783c;font-size:12px;letter-spacing:.18em;font-weight:600">EN HONOR A TI Y A TODO ESTE TIEMPO<br>COMPARTIDO. MUCHAS GRACIAS.</div><h1 style="margin:28px 0 8px;font-family:'Playfair Display',serif;font-style:italic;font-size:46px;color:#8d783c">Certificado de cremación</h1><div style="color:#D4AF37">✦ ✦ ✦</div><div style="margin:40px 0 35px;display:flex;align-items:center;gap:25px;justify-content:center;width:100%"><div id="certPetIcon" style="font-size:48px">🐾</div><div style="text-align:center"><span style="display:block;font-size:14px;color:#5b5646">Con amor recordamos a</span><strong id="certPetName" style="display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:42px">Nuestro compañero</strong></div></div><div style="width:88%;border-top:1px solid #D4AF37;border-bottom:1px solid #D4AF37"><div class="cert-row"><b>Especie:</b><span id="certSpecies">—</span></div><div class="cert-row"><b>Raza:</b><span id="certBreed">—</span></div><div class="cert-row"><b>Edad:</b><span id="certAge">—</span></div><div class="cert-row"><b>Tipo de cremación:</b><span id="certService">—</span></div><div class="cert-row"><b>Propietario:</b><span id="certOwner">—</span></div></div><div style="margin-top:auto;width:100%;display:grid;grid-template-columns:1fr 130px 1fr;align-items:end;gap:20px;font-size:12px;color:#5b5646"><div><b style="display:block;color:#8d783c">FECHA DE DEFUNCIÓN</b><span id="certDate">________________</span></div><div style="width:90px;height:90px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:10px;background:#fff"><img src="https://nextli-stroks15s-projects.vercel.app/images/logo.png" style="width:100%;height:100%;object-fit:contain"></div><div style="text-align:right"><b style="display:block;color:#8d783c">Cadies &amp; Bainer</b><span>MVZ</span></div></div></div></div><main class="view" id="view-faq" data-view="faq">
 <div class="arc-divider" style="background:var(--cream)"><svg viewBox="0 0 180 36" fill="none"><path d="M4 4C40 34 140 34 176 4" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg></div>
 <section class="faq-wrap" id="faq">
   <div class="container">
@@ -1657,6 +1650,7 @@
   }
 
   window.nextliOpenConfigurador = openConfigurador;
+  if(location.pathname==='/configurador.html') setTimeout(()=>openConfigurador('#nosotros'),80);
   if(location.pathname === '/configurador.html') setTimeout(()=>openConfigurador('#nosotros'),80);
 
   if(closeBtn) closeBtn.addEventListener('click', closeConfigurador);
@@ -1737,10 +1731,7 @@ const SIZE_LABEL = {chico:'Chico (0–10 kg)', mediano:'Mediano (11–25 kg)', g
 const COM_PRICE = {chico:800, mediano:850, grande:1100};
 const COM_LABEL = {chico:'Chico (0–10 kg)', mediano:'Mediano (11–25 kg)', grande:'Grande (+25 kg)'};
 
-let state = {
-  service:null, species:'', breed:'', weight:'', weightCom:'',
-  urnId:null, plus:false, huella:false, cert:false, color:'',
-};
+let state={service:null,species:'',otherSpecies:'',breed:'',weight:'',weightCom:'',urnId:null,plus:false,huella:false,cert:false,color:'',frame:'Sin marco',worker:false,payment:'No pagado',paymentOther:''};
 
 const TOTAL_STEPS = 5;
 const STEP_ICONS = ['🐾','🐶','🐱','🐦','🐰'];
@@ -1804,37 +1795,24 @@ document.querySelectorAll('[data-service]').forEach(card=>{
   });
 });
 
-document.getElementById('species').addEventListener('change', (e)=>{
-  state.species = e.target.value;
-  document.getElementById('breedField').style.display = (state.species === 'perro') ? 'block' : 'none';
-  updateSuggestion();
-});
-document.getElementById('breed').addEventListener('change', (e)=>{ state.breed = e.target.value; });
-document.getElementById('weightRange').addEventListener('change', (e)=>{
-  state.weight = e.target.value;
-  // La urna es obligatoria para este servicio: al cambiar el peso se pide reconfirmar la urna.
-  state.urnId = null;
-  document.getElementById('next2').disabled = true;
-  updateSuggestion();
-});
-document.getElementById('weightRangeCom').addEventListener('change', (e)=>{
-  state.weightCom = e.target.value;
-  document.getElementById('next2').disabled = !state.weightCom;
-});
+const DOG_WEIGHTS={Chihuahua:'chico',Pug:'chico',Poodle:'chico','Pastor Alemán':'grande','Labrador Retriever':'grande','Golden Retriever':'grande',Schnauzer:'chico','Bulldog Francés':'chico',Beagle:'mediano',Rottweiler:'grande',Mestizo:'mediano'};
+const CAT_WEIGHTS={Siamés:'chico',Persa:'chico',Esfinge:'chico','Maine Coon':'mediano','Británico de pelo corto':'chico',Bengalí:'chico',Ragdoll:'chico',Angora:'chico',Mestizo:'chico'};
+function applyBreedWeight(b){const s=DOG_WEIGHTS[b]||CAT_WEIGHTS[b]||'';if(s){state.weight=s;document.getElementById('weightRange').value=s;document.getElementById('weightRange').disabled=true;document.getElementById('manualWeightAction').style.display='block';}updateSuggestion();}
+document.getElementById('species').addEventListener('change',e=>{state.species=e.target.value;state.otherSpecies='';state.breed='';state.weight='';document.getElementById('otherSpeciesField').style.display=state.species==='otro'?'block':'none';document.getElementById('breedField').style.display=state.species==='perro'?'block':'none';document.getElementById('catBreedField').style.display=state.species==='gato'?'block':'none';document.getElementById('breed').value='';document.getElementById('catBreed').value='';document.getElementById('weightRange').value='';document.getElementById('weightRange').disabled=false;document.getElementById('manualWeightAction').style.display='none';updateSuggestion();});
+document.getElementById('otherSpecies').addEventListener('input',e=>state.otherSpecies=e.target.value);
+document.getElementById('breed').addEventListener('change',e=>{state.breed=e.target.value;applyBreedWeight(state.breed);});
+document.getElementById('catBreed').addEventListener('change',e=>{state.breed=e.target.value;applyBreedWeight(state.breed);});
+document.getElementById('manualWeightBtn').addEventListener('click',()=>{document.getElementById('weightRange').disabled=false;document.getElementById('manualWeightAction').style.display='none';document.getElementById('weightRange').focus();});
+document.getElementById('weightRange').addEventListener('change',e=>{state.weight=e.target.value;state.urnId=null;document.getElementById('next2').disabled=true;updateSuggestion();});
+document.getElementById('weightRangeCom').addEventListener('change',e=>{state.weightCom=e.target.value;document.getElementById('next2').disabled=!state.weightCom;});
 
-function suggestSize(){
-  if(!state.species) return null;
-  if(['ave','exotico'].includes(state.species)) return 'chico';
-  if(state.species === 'perro' && state.weight) return state.weight;
-  if(state.species === 'gato') return (state.weight==='chico' || !state.weight) ? 'chico' : state.weight;
-  return state.weight || null;
-}
+function suggestSize(){if(!state.species)return null;return(state.species==='perro'||state.species==='gato')?state.weight:null;}
 function updateSuggestion(){
   const note = document.getElementById('suggestNote');
   const s = suggestSize();
   if(s){
     note.style.display='block';
-    note.innerHTML = `Con base en los datos de tu compañero, te sugerimos el tamaño <b>${SIZE_LABEL[s]}</b>. Sin embargo, puedes elegir la urna que más te reconforte.`;
+    note.innerHTML = `Peso sugerido automáticamente: <b>${SIZE_LABEL[s]}</b>.`;
     renderUrns(s);
   } else {
     note.style.display='none';
@@ -1885,8 +1863,7 @@ document.getElementById('next2').addEventListener('click', ()=>{
     if(id==='addHuella') state.huella = e.target.checked;
     if(id==='addCert') state.cert = e.target.checked;
     // El selector de color de vinilo/letras solo aplica al Paquete Plus.
-    document.getElementById('colorWrap').style.display = state.plus ? 'block' : 'none';
-    updateRunningTotal();
+    document.getElementById('frameWrap').style.display=state.plus?'block':'none';document.getElementById('colorWrap').style.display=state.plus?'block':'none';updateRunningTotal();
     syncExtraButtons();
   });
 });
@@ -1909,6 +1886,7 @@ document.querySelectorAll('[data-toggle-extra]').forEach(btn=>{
   });
 });
 syncExtraButtons();
+document.querySelectorAll('[data-frame]').forEach(sw=>sw.addEventListener('click',()=>{document.querySelectorAll('[data-frame]').forEach(x=>x.classList.remove('selected'));sw.classList.add('selected');state.frame=sw.dataset.frame;}));
 document.querySelectorAll('.color-swatch').forEach(sw=>{
   sw.addEventListener('click', ()=>{
     document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'));
@@ -1939,6 +1917,21 @@ function updateRunningTotal(){
   document.getElementById('runningTotal3').textContent = 'Total: $' + calcTotal().toLocaleString() + ' MXN';
 }
 updateRunningTotal();
+
+let eggClicks=[],eggLast=0;
+function activateWorkerClick(kind){const now=Date.now();if(now-eggLast>3000)eggClicks=[];if(kind==='nextli'&&eggClicks.length<2)eggClicks.push('nextli');else if(kind==='personalize'&&eggClicks.length===2){state.worker=true;eggClicks=[];updateWorkerUI();}else if(kind==='personalize')eggClicks=[];eggLast=now;}
+document.querySelectorAll('.nextli-header-brand').forEach(x=>x.addEventListener('click',e=>{e.preventDefault();activateWorkerClick('nextli');}));
+document.querySelectorAll('[data-open-config]').forEach(x=>x.addEventListener('click',()=>activateWorkerClick('personalize')));
+function updateWorkerUI(){document.getElementById('workerPaymentWrap').style.display=state.worker?'block':'none';document.getElementById('workerFinalActions').style.display=state.worker?'flex':'none';document.getElementById('sendWa').style.display=state.worker?'none':'inline-flex';}
+document.getElementById('paymentStatus').addEventListener('change',e=>{state.payment=e.target.value;document.getElementById('paymentOther').style.display=state.payment==='Otro'?'block':'none';});
+document.getElementById('paymentOther').addEventListener('input',e=>state.paymentOther=e.target.value);
+function effectiveSpecies(){return state.species==='otro'?(state.otherSpecies||'Otro'):state.species;}
+function workerMessage(){const u=URNS.find(x=>x.id===state.urnId);const ex=[];if(state.plus)ex.push('Homenaje completo (+$500)');if(state.huella)ex.push('Huella con pelo (+$200)');if(state.cert)ex.push('Certificado físico adicional (+$50)');if(state.plus)ex.push('Marco: '+state.frame+'; Vinilo: '+(state.color||'No indicado'));return ['SOLICITUD NEXTLI','Servicio: '+(state.service==='comunitaria'?'Cremación Comunitaria':'Cremación Individual'),'Urna: '+(state.service==='comunitaria'?'N/A':(u?u.name:'—')),'Extras: '+(ex.join(', ')||'Ninguno'),'Mascota: '+val('petName'),'Especie: '+effectiveSpecies(),'Raza: '+(state.breed||'—'),'Edad: '+val('petAge'),'Tutor: '+val('ownerName'),'Teléfono: '+val('ownerPhone'),'Dirección: '+val('ownerAddress'),'Fecha de defunción: '+val('petDate'),'Estado del pago: '+(state.payment==='Otro'?'Otro — $'+(state.paymentOther||'0')+' MXN':state.payment),'Total: $'+calcTotal().toLocaleString('es-MX')+' MXN'].join('\n');}
+async function downloadCertificate(){const pet=val('petName').trim(),owner=val('ownerName').trim(),safe=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,''),filename=pet&&owner?'Certificado-'+safe(pet)+'-'+safe(owner)+'.pdf':'Certificado-Cremacion-Nextli.pdf';document.getElementById('certPetName').textContent=pet||'Nuestro compañero';document.getElementById('certSpecies').textContent=effectiveSpecies()||'—';document.getElementById('certBreed').textContent=state.breed||'—';document.getElementById('certAge').textContent=val('petAge');document.getElementById('certService').textContent=state.service==='comunitaria'?'Cremación sin recuperación / comunitaria':'Cremación individual';document.getElementById('certOwner').textContent=owner||'—';document.getElementById('certDate').textContent=val('petDate');document.getElementById('certPetIcon').textContent=state.species==='gato'?'🐈':state.species==='perro'?'🐕':'🐾';if(window.html2pdf)await html2pdf().set({margin:0,filename:filename,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#FBF7EE'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('certificatePrint')).save();}
+document.getElementById('downloadCertificate').addEventListener('click',downloadCertificate);
+document.getElementById('sendGroupWa').addEventListener('click',async()=>{const m=workerMessage();try{await navigator.clipboard.writeText(m);}catch(e){}await downloadCertificate();window.open('https://whatsapp.com','_blank','noopener');});
+document.getElementById('sendClientWa').addEventListener('click',async()=>{const p=val('ownerPhone').replace(/\D/g,'');if(!p){alert('Escribe el teléfono del cliente.');return;}await downloadCertificate();window.open('https://wa.me/'+(p.startsWith('52')?p:'52'+p)+'?text='+encodeURIComponent(workerMessage()),'_blank','noopener');});
+updateWorkerUI();
 
 function renderSummary(){
   const isCom = state.service === 'comunitaria';
