@@ -1726,7 +1726,7 @@
     for(let t=0;t<SLIDES.length;t++){
       const s=SLIDES[idx];
       if(await show(s)){
-        setTimeout(()=>{idx=(idx+1)%SLIDES.length;next();},s.cover?12000:4500);
+        setTimeout(()=>{idx=(idx+1)%SLIDES.length;next();},s.cover?8000:4500);
         return;
       }
       idx=(idx+1)%SLIDES.length;
