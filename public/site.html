@@ -743,8 +743,10 @@
 .brand-badge img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 .brand > span:last-child{white-space:nowrap}
 .hero-showcase{width:min(92vw,680px);margin:38px auto 30px;opacity:1;transform:none;pointer-events:auto}
-.hero-showcase-stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px;border:1px solid rgba(212,175,55,.48);background:#fff;box-shadow:0 24px 60px -24px rgba(0,0,0,.72)}
-.hero-showcase-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center;padding:6%;opacity:0;transition:opacity 1.15s ease-in-out;will-change:opacity}
+.hero-showcase-stage{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:22px;border:0;background:transparent;box-shadow:none}
+.hero-showcase-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center;padding:0;opacity:0;transition:opacity 1.15s ease-in-out;will-change:opacity;background:transparent}
+.hero-showcase-img.cover{object-fit:cover;object-position:center;border-radius:22px}
+.pwa-modal-logo{display:block;margin:0 auto 12px;height:64px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(11,25,44,.35))}
 .hero-showcase-img.active{opacity:1}
 .hero-showcase-caption{display:block;margin-top:12px;font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-soft);opacity:.9}
 @media(max-width:480px){.hero-showcase{width:calc(100vw - 28px);margin:26px auto 24px}}
@@ -866,7 +868,7 @@
 <header id="siteHeader" class="nextli-header">
   <div class="nextli-header-inner">
     <a class="nextli-header-brand" href="#top" aria-label="NEXTLI inicio">
-      <img class="nextli-header-logo" src="/images/nextli-logo.png" alt="Logo NEXTLI" width="44" height="44" decoding="async">
+      <img class="nextli-header-logo" src="images/nextli-logo.png" alt="Logo NEXTLI" width="44" height="44" decoding="async" onerror="this.onerror=null;this.src='https://nextli-servicios-funerarios.vercel.app/images/nextli-logo.png'">
       <span class="nextli-header-word">NEXTLI</span>
     </a>
     <button type="button" class="nextli-menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
@@ -947,7 +949,7 @@
           <li>Certificado impreso y entrega a domicilio</li>
         </ul>
         <div class="price">Desde <b>$1,750 MXN</b> según tamaño y urna</div>
-        <a class="go" href="#configurador">Personalizar Despedida</a>
+        <a class="go" href="https://nextli-servicios-funerarios.vercel.app/">Personalizar Despedida</a>
       </div>
       <div class="svc-card" data-reveal>
         <span class="tag">Comunitaria</span>
@@ -958,7 +960,7 @@
           <li>Opción consciente y económica</li>
         </ul>
         <div class="price">Chico $800 · Mediano $850 · Grande $1,100 MXN</div>
-        <a class="go" href="#configurador">Personalizar Despedida</a>
+        <a class="go" href="https://nextli-servicios-funerarios.vercel.app/">Personalizar Despedida</a>
       </div>
       <div class="svc-card" data-reveal>
         <span class="tag">Disponible las 24 horas</span>
@@ -1046,7 +1048,7 @@
       <button type="button" class="gallery-arrow" data-carousel-next="urnas-grid" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
     <div style="text-align:center;margin-top:38px;">
-      <a class="btn btn-dark" href="#configurador">Elegir mi urna en Personalizar Despedida →</a>
+      <a class="btn btn-dark" href="https://nextli-servicios-funerarios.vercel.app/">Elegir mi urna en Personalizar Despedida →</a>
     </div>
   </div>
 </section>
@@ -1369,11 +1371,12 @@
 
 
 <button class="pwa-install" id="pwaInstallBtn" type="button" aria-label="Instalar NEXTLI">
-  <img class="pwa-icon" src="/images/nextli-logo.png" alt="NEXTLI" width="26" height="26" decoding="async">
+  <img class="pwa-icon" src="images/nextli-logo.png" alt="NEXTLI" width="26" height="26" decoding="async" onerror="this.onerror=null;this.src='https://nextli-servicios-funerarios.vercel.app/images/nextli-logo.png'">
   <span>Instalar NEXTLI</span>
 </button>
 <div class="pwa-modal" id="pwaModal" role="dialog" aria-modal="true" aria-labelledby="pwaTitle">
   <div class="pwa-card">
+    <img class="pwa-modal-logo" src="images/nextli-logo.png" alt="Logo NEXTLI" height="64" decoding="async" onerror="this.onerror=null;this.src='https://nextli-servicios-funerarios.vercel.app/images/nextli-logo.png'">
     <h3 id="pwaTitle">Instala NEXTLI en tu dispositivo</h3>
     <p id="pwaIntro">Ten NEXTLI como una aplicación para abrirla rápidamente desde tu pantalla de inicio.</p>
     <ol id="pwaSteps"></ol>
@@ -1587,7 +1590,7 @@
     personalizarBtn.addEventListener('click', function(){
       closeGuia();
       setTimeout(function(){
-        location.hash = '#configurador';
+        window.location.href = 'https://nextli-servicios-funerarios.vercel.app/';
       }, 200);
     });
   }
@@ -1645,6 +1648,8 @@
   let fallbackHash = '#nosotros';
 
   function openConfigurador(prevHash){
+    window.location.href = 'https://nextli-servicios-funerarios.vercel.app/';
+    return;
     fallbackHash = (prevHash && prevHash !== '#configurador') ? prevHash : '#nosotros';
     overlay.classList.add('open');
     document.body.classList.add('config-lock');
@@ -1680,8 +1685,7 @@
   document.querySelectorAll('[data-open-config]').forEach(function(b){
     b.addEventListener('click',function(e){
       e.preventDefault();
-      if(typeof window.nextliOpenConfigurador==='function') window.nextliOpenConfigurador();
-      else location.hash='#configurador';
+      window.location.href='https://nextli-servicios-funerarios.vercel.app/';
     });
   });
 })();
@@ -1693,11 +1697,12 @@
   const caption=document.getElementById('heroShowcaseCaption');
   if(!box||!a||!b)return;
   const SLIDES=[
-    {src:'/images/urna-clasica.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-clasica.png',label:'Urna Clásica Pewter'},
-    {src:'/images/urna-corazon.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-corazon.png',label:'Urna Corazón'},
-    {src:'/images/urna-hueso-cromado.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-hueso-cromado.png',label:'Huesito Cromado'},
-    {src:'/images/urna-talavera-pewter.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-talavera-pewter.png',label:'Talavera y Pewter'},
-    {src:'/images/urna-casita-teja.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-casita-teja.png',label:'Casita con Teja'}
+    {src:'images/portada-nextli.jpg',fallback:'https://raw.githubusercontent.com/stroks15/CREMACIONES-NEXTLI/main/public/images/portada-nextli.jpg',label:'',cover:true},
+    {src:'images/urna-clasica.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-clasica.png',label:'Urna Clásica Pewter'},
+    {src:'images/urna-corazon.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-corazon.png',label:'Urna Corazón'},
+    {src:'images/urna-hueso-cromado.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-hueso-cromado.png',label:'Huesito Cromado'},
+    {src:'images/urna-talavera-pewter.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-talavera-pewter.png',label:'Talavera y Pewter'},
+    {src:'images/urna-casita-teja.png',fallback:'https://nextli-stroks15s-projects.vercel.app/images/urna-casita-teja.png',label:'Casita con Teja'}
   ];
   let idx=0,front=a;
   function load(src,fallback){
@@ -1710,15 +1715,25 @@
   }
   async function show(slide){
     const src=await load(slide.src,slide.fallback);
-    if(!src)return;
+    if(!src)return false;
     const back=front===a?b:a;
-    back.src=src;back.alt=slide.label;back.classList.add('ready');
+    back.src=src;back.alt=slide.label||'NEXTLI';back.classList.toggle('cover',!!slide.cover);back.classList.add('ready');
     requestAnimationFrame(()=>{front.classList.remove('active');back.classList.add('active');front=back;});
-    if(caption)caption.textContent=slide.label;
+    if(caption)caption.textContent=slide.label||'';
+    return true;
+  }
+  async function next(){
+    for(let t=0;t<SLIDES.length;t++){
+      const s=SLIDES[idx];
+      if(await show(s)){
+        setTimeout(()=>{idx=(idx+1)%SLIDES.length;next();},s.cover?6500:4500);
+        return;
+      }
+      idx=(idx+1)%SLIDES.length;
+    }
   }
   box.classList.add('show');
-  show(SLIDES[0]);
-  setInterval(()=>{idx=(idx+1)%SLIDES.length;show(SLIDES[idx]);},4500);
+  next();
 })();
 
 const URNS = [
@@ -2226,7 +2241,7 @@ document.querySelectorAll('.faq-item').forEach(item=>{
       reply:'Todos los servicios de cremación individual incluyen certificado de cremación (impreso). Si deseas una copia física adicional, tiene un costo de +$50 MXN. La comunitaria incluye certificado digital por correo.' },
     { keys:['configurador','armar','cotiz','precio total','presupuesto','personalizar despedida','personalizar'],
       reply:'Puedes armar tu servicio paso a paso —tipo de servicio, tamaño, urna y adicionales— en Personalizar Despedida. Al final se genera un resumen con el total y puedes enviarlo directo por WhatsApp.',
-      cta:{label:'Ir a Personalizar Despedida', href:'#configurador'} },
+      cta:{label:'Ir a Personalizar Despedida', href:'https://nextli-servicios-funerarios.vercel.app/'} },
     { keys:['ubicación','ubicacion','dirección','direccion','dónde están','donde estan','llegar','mapa'],
       reply:'Nos ubicamos en la clínica Salud Animal: José Bernardo Couto 226, México 2da Secc, 57620, Cdad. Nezahualcóyotl, Méx. También puedes ver el mapa en la sección de Contacto.' },
     { keys:['horario','abren','atención 24'],
@@ -2373,7 +2388,7 @@ document.querySelectorAll('.faq-item').forEach(item=>{
    }
    if(data&&data.services&&data.services.length){
     const grid=document.querySelector('.svc-grid');
-    if(grid) grid.innerHTML=data.services.map((v,i)=>'<div class="svc-card" data-reveal><span class="tag">'+(i===0?'Individual':i===1?'Comunitaria':'Disponible las 24 horas')+'</span><h3>'+v.name+'</h3><p class="service-admin-description">'+v.description+'</p><div class="price">'+v.price+'</div><a class="go" href="#configurador">Personalizar Despedida</a></div>').join('');
+    if(grid) grid.innerHTML=data.services.map((v,i)=>'<div class="svc-card" data-reveal><span class="tag">'+(i===0?'Individual':i===1?'Comunitaria':'Disponible las 24 horas')+'</span><h3>'+v.name+'</h3><p class="service-admin-description">'+v.description+'</p><div class="price">'+v.price+'</div><a class="go" href="https://nextli-servicios-funerarios.vercel.app/">Personalizar Despedida</a></div>').join('');
    }
    if(data&&data.content) apply(data.content);
   }catch(e){ console.warn('NEXTLI CMS',e); }
