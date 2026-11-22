@@ -66,7 +66,7 @@ function render(){
  updateTotals();
 }
 function updateTotals(){const custom=Number(data.customPrice||0),sub=data.total+custom;const s=$('nr-subtotal'),b=$('nr-balance'),ct=$('nr-custom-total');if(s)s.textContent=fmt(sub);if(ct)ct.textContent=fmt(custom);if(b)b.textContent=fmt(sub-Number(data.deposit||0));}
-function consolidate(){data={...data,...snapshot(),folio:data.folio,date:data.date,extraNotes:data.extraNotes||'',phrase:data.phrase||''};render();}
+function consolidate(){const fresh=snapshot();data={...fresh,...data,folio:data.folio,date:data.date,extraNotes:data.extraNotes||'',phrase:data.phrase||''};render();}
 btn.addEventListener('click',()=>{if(!document.body.classList.contains('nextli-worker-mode'))return;data=snapshot();modal.classList.add('open');render();});
 $('nr-create').addEventListener('click',consolidate);$('nr-close').addEventListener('click',()=>modal.classList.remove('open'));
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open');});
