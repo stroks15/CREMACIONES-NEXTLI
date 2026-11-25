@@ -2797,7 +2797,7 @@ if(topBrand&&topAction){
     <div class="cert-footer"><div><b>FECHA DE DEFUNCIÓN</b><br><span id="certDate">—</span></div><div class="cert-logo">NEXTLI</div><div style="text-align:right">Cadies &amp; Bainer<br>MVZ</div></div>
   </div>
 </div>
-<script src="/nota-remision-nextli.js" defer></script>
+
 </body>
 </html>+(document.getElementById('paymentAmount')?.value||'0')+' MXN';}return s;}
 if(species){species.innerHTML='<option value="">Selecciona…</option><option value="perro">Perro</option><option value="gato">Gato</option><option value="otro">Otro</option>';species.addEventListener('change',function(){const known=this.value==='perro'||this.value==='gato';document.getElementById('breedField').style.display=known?'block':'none';const f=document.getElementById('speciesOtherField');if(f)f.style.display=this.value==='otro'?'block':'none';other.value='';breed.innerHTML='<option value="">Selecciona…</option>';const list=this.value==='perro'?Object.keys(dogBreeds):this.value==='gato'?Object.keys(catBreeds):[];list.forEach(r=>{const o=document.createElement('option');o.textContent=r;breed.appendChild(o);});state.species=this.value;state.breed='';});}
@@ -3245,5 +3245,6 @@ if(topBrand&&topAction){
     <div class="cert-footer"><div><b>FECHA DE DEFUNCIÓN</b><br><span id="certDate">—</span></div><div class="cert-logo">NEXTLI</div><div style="text-align:right">Cadies &amp; Bainer<br>MVZ</div></div>
   </div>
 </div>
+<script src="/nota-remision-nextli.js" defer></script>
 </body>
 </html>
