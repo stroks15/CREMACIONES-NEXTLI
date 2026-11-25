@@ -1719,7 +1719,7 @@
   document.querySelectorAll('[data-open-config]').forEach(function(b){
     b.addEventListener('click',function(e){
       e.preventDefault();
-      window.location.href='/configurador.html';
+      if(location.hostname==='nextli-personaliza-despedida.vercel.app'||location.hostname==='nextli-personaliza-su-despedida.vercel.app'||location.hostname.startsWith('nextli-personaliza-su-despedida-')){window.location.href='/configurador.html';}else{window.location.href='https://nextli-personaliza-despedida.vercel.app/';}
     });
   });
 })();
