@@ -2,10 +2,19 @@
 'use strict';
 const workerActions=document.getElementById('workerFinalActions');
 if(!workerActions)return;
-const btn=document.createElement('button');
-btn.type='button';btn.id='createRemissionNote';btn.className='btn btn-outline-dark worker-only worker-flex';
+// The button is part of Step 5 markup so it always sits immediately below
+// "Descargar Certificado PDF". Keep a fallback for older cached HTML versions.
+let btn=document.getElementById('createRemissionNote');
+if(!btn){
+ btn=document.createElement('button');
+ const certificateButton=document.getElementById('downloadCertificate');
+ if(certificateButton&&certificateButton.parentNode)certificateButton.insertAdjacentElement('afterend',btn);
+ else workerActions.appendChild(btn);
+}
+btn.type='button';
+btn.id='createRemissionNote';
+btn.className='btn btn-outline-dark worker-only worker-flex';
 btn.textContent='Ver Nota de Remisión';
-workerActions.appendChild(btn);
 const observer=new MutationObserver(()=>{btn.style.display=document.body.classList.contains('nextli-worker-mode')?'inline-flex':'none';});
 observer.observe(document.body,{attributes:true,attributeFilter:['class']});
 btn.style.display=document.body.classList.contains('nextli-worker-mode')?'inline-flex':'none';
