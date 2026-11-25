@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/configurador.html"
+      "destination": "/site.html"
     }
   ]
 }
