@@ -68,7 +68,7 @@ function restore(){
     document.querySelectorAll('[data-color]').forEach(el=>el.classList.toggle('selected',el.dataset.color===state.color));
     if(typeof updateSuggestion==='function')updateSuggestion();
     if(typeof renderUrns==='function')renderUrns(state.weight||null);
-    document.querySelectorAll('.urn-card').forEach(el=>el.classList.toggle('selected',el.dataset.urn===state.urnId||el.getAttribute('data-id')===state.urnId||el.textContent.includes((typeof URNS!=='undefined'?(URNS.find(u=>u.id===state.urnId)||{}).name:'')||'___')));
+    // renderUrns() already applies the selected class from state.urnId.
     if(typeof syncExtraButtons==='function')syncExtraButtons();
     if(typeof updateRunningTotal==='function')updateRunningTotal();
     const next2=document.getElementById('next2');
